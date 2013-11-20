@@ -8,21 +8,28 @@ window.onload = function(){
 		// Returnera den konverterade strängen.
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
 	
-	    var to = "boBb"; 
+	    var to = str; 
 	    var i = 0;
 	    var count = 0; 
-	    
+	    var output = " "; // så att det blir en sträng
+
 	    for (var i = 0; i < to.length ; i++) // för varje bokstav i variabeln "to" <-- ändras väll så småning om, testar bara nu..
 	    {
-	        if(to.toUpperCase(to.charAt(i)))
+	        var newChar = to[i].toUpperCase(); // to[i] <-- markerar den bokstav jag vill ändra.. (i berättar vilken bokstav det är..)
+	        if(newChar === to[i])//to.charAt(i).toUpperCase(to.charAt(i))
 	        {
-	            to.charAt(i).replace(to.charAt(i), to.toUpperCase(to.charAt(i)));
+	            output += newChar.toLowerCase();
+
+	            //to.charAt(i).replace(to.charAt(i), to.toLowerCase(to.charAt(i)));
+	        }else 
+	        {
+	            output += newChar.toUpperCase();
 	        }
 	        
 	    }
 
 
-	    return to;
+	    return output;
 
 
 
