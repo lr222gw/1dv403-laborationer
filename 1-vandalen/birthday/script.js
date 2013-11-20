@@ -8,6 +8,11 @@ window.onload = function(){
 	    var birthday = new Date(date);
 	    var now = new Date();
 	    var daysInMonthsUntilBday = ((((birthday.getTime() - now.getTime())/1000)/60)/60)/24; // Dividera med 1000 för att få millisekunder till sekunder.. /60 för att få det till minuter.. /60 igen för h... /24 för dagar..
+	    daysInMonthsUntilBday = Math.floor(daysInMonthsUntilBday) + 1; // + 1 gör så att allting fungerar! 
+	    if (daysInMonthsUntilBday < 0) // Denna sats ser till att om man testar 
+	    {
+	        daysInMonthsUntilBday = 365 + daysInMonthsUntilBday;
+	    }
 
 	    return daysInMonthsUntilBday;
 			
