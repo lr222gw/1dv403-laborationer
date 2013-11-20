@@ -9,18 +9,14 @@ window.onload = function(){
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
 	
 	    var to = "boBb"; 
-
-	    var i = 0; 
+	    var i = 0;
+	    var count = 0; 
 	    
-	    for (CharacterData in to) // för varje bokstav i variabeln "to" <-- ändras väll så småning om, testar bara nu..
+	    for (var i = 0; i < to.length ; i++) // för varje bokstav i variabeln "to" <-- ändras väll så småning om, testar bara nu..
 	    {
-	        if (to.toUpperCase(to))
+	        if(to.toUpperCase(to.charAt(i)))
 	        {
-	            to = to.toLowerCase();
-	        }
-	        if (to.toLowerCase(to))
-	        {
-	            to = to.toUpperCase();
+	            to.charAt(i).replace(to.charAt(i), to.toUpperCase(to.charAt(i)));
 	        }
 	        
 	    }
