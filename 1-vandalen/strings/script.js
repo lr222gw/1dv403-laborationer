@@ -8,10 +8,22 @@ window.onload = function(){
 		// Returnera den konverterade strängen.
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
 	
-	    var to = "boBb";
+	    var to = "boBb"; 
 
 	    var i = 0; 
 	    
+	    for (CharacterData in to) // för varje bokstav i variabeln "to" <-- ändras väll så småning om, testar bara nu..
+	    {
+	        if (to.toUpperCase(to))
+	        {
+	            to = to.toLowerCase();
+	        }
+	        if (to.toLowerCase(to))
+	        {
+	            to = to.toUpperCase();
+	        }
+	        
+	    }
 
 
 	    return to;
