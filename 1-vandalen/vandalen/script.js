@@ -35,6 +35,7 @@ var makePerson = function(persArr){
     objectArr.maxAge = findMax;
     objectArr.minAge = findMin;
     objectArr.averageAge = (allAgeTogheter) / differentAges.length;
+    objectArr.averageAge = Math.round(objectArr.averageAge); // avnrundar så att det blir ett godkänt tal i testerna..
     differentNames.sort(); // sorterar till bokstavsordning
     objectArr.names = differentNames.join(", ");
 
