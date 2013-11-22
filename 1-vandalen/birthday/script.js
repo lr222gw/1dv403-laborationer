@@ -5,15 +5,24 @@ window.onload = function(){
 	
 	var birthday = function(date){
 		
-	    var birthday = new Date(date);
+	    var birthday = new Date(date);	 
 	    var now = new Date();
+
+	    var birthdayYear = birthday.getFullYear();
+	    var nowYear = now.getFullYear();
+
+	    var yearsBetweenBdayAndNow = nowYear - birthdayYear;
+	    var yearsInDaysBetweenBdayAndNow =                ; //(yearsBetweenBdayAndNow * 365) + 365; 
+       
+
 	    var daysInMonthsUntilBday = ((((birthday.getTime() - now.getTime())/1000)/60)/60)/24; // Dividera med 1000 för att få millisekunder till sekunder.. /60 för att få det till minuter.. /60 igen för h... /24 för dagar..
-	    daysInMonthsUntilBday = Math.floor(daysInMonthsUntilBday) + 1; // + 1 gör så att allting fungerar! 
+	    daysInMonthsUntilBday = Math.floor(daysInMonthsUntilBday) + 1; // + 1 gör så att allting fungerar! resten är avrundning..
 	    if (daysInMonthsUntilBday < 0) // Denna sats ser till att om man testar 
 	    {
-	        daysInMonthsUntilBday = 365 + daysInMonthsUntilBday;
+	        daysInMonthsUntilBday = yearsInDaysBetweenBdayAndNow + daysInMonthsUntilBday;
 	    }
 
+	    //return birthday.getDate();
 	    return daysInMonthsUntilBday;
 			
 
