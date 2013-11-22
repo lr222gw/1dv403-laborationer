@@ -10,6 +10,21 @@ var makePerson = function(persArr){
     var findMax = 0;
     var findMin = Infinity - 1;
     var allAgeTogheter = 0;
+    //var stringFixScandinavianLetters = ["Å", "Ä", "Ö", "å", "ä", "ö"];
+    function compare(a, b) {
+        return a.localeCompare(b); // function som tar hand om de scandinaviska bokstäverna.. Anropas av Sort-metoden..
+        if (a > b ) 
+        {
+            return -1;
+        }
+        if (a > b)
+        {
+            return 1;
+        }
+        
+        // a must be equal to b
+        return 0;
+    }
 
 
     for(i = 0; i < persArr.length ; i++) // ska hålla på tills det inte finns mer object i arrayen...
@@ -36,8 +51,9 @@ var makePerson = function(persArr){
     objectArr.minAge = findMin;
     objectArr.averageAge = (allAgeTogheter) / differentAges.length;
     objectArr.averageAge = Math.round(objectArr.averageAge); // avnrundar så att det blir ett godkänt tal i testerna..
-    differentNames.sort(); // sorterar till bokstavsordning
+    differentNames.sort(compare); // sorterar till bokstavsordning
     objectArr.names = differentNames.join(", ");
+    
 
     return objectArr;
 }
