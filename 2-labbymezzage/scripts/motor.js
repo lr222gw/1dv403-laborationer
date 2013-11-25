@@ -13,7 +13,7 @@ var motor = {
 			motor.messages.push(test[i]); // Pushar in det i arrayen messages som ligger i objectet motor
 		}
 		
-		alert(motor.messages); // visar meddelandet från "brevet"
+		alert(motor.messages[1]); // visar meddelandet från "brevet"
 	},
 }
 
