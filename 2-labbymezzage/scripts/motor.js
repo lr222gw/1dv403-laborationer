@@ -1,8 +1,12 @@
 "use strict";
+
+var mess = new this.Message("tessstar", new Date()); 
+
 var motor = {
-	 alertF : function(){
-	alert("dogs smell");
+	 alertD : function(){
+	 
+	alert(mess);
 	}
 }
 
-window.onload = motor.alertF;
+window.onload = motor.alertD;
