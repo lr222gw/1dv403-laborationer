@@ -1,34 +1,34 @@
 "use strict";
-function Message(message, date){
+function Message(message, theDate){
 	//Skapar get-metoder
-	this.getMessage = function(){
+	this.getTheMessage = function(){
 		return message;
 	};
-	this.getDate = function(){
-		return date;
+	this.getTheDate = function(){
+		return theDate;
 	};
 	//Skapar set-metoder
 	this.setMessage = function(_message){
 		message = _message;
 	};
-	this.setDate = function(_date){
-		date = _date;
+	this.setTheDate = function(_date){
+		theDate = _date;
 	};
 	
 } // med denna konstruktorfunktion kan vi instansiera nya meddelanden.. 
 
 Message.prototype.toString = function() {
-	return this.getMessage()+" ("+this.getDate+")";
+	return this.getTheMessage()+" ("+this.getTheDate()+")";
 };
 this.Message.prototype.getTextMessage = function(){ // En priviligerad metod.
-	return this.getMessage();
+	return this.getTheMessage();
 };
 this.Message.prototype.getDateTime = function() {
-	return this.getDate();
+	return this.getTheDate();
 };
 this.Message.prototype.setTextMessage = function(_text) {
 	this.setMessage(_text);
 };
 this.Message.prototype.setDateTime = function(_date) {
-	this.setDate(_date);
+	this.setTheDate(_date);
 };

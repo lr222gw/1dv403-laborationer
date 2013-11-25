@@ -1,6 +1,6 @@
 "use strict";
 
-var mess = new this.Message("tessstar", new Date()); 
+var mess = new Message("tessstar", new Date()); 
 
 var motor = {
 	 alertD : function(){
