@@ -4,8 +4,8 @@ var mess = new Message("tessstar", new Date());
 
 var motor = {
 	 alertD : function(){
-	 
-	alert(mess);
+	mess.setMessage("farr");
+	alert(mess.getTheMessage());
 	}
 }
 
