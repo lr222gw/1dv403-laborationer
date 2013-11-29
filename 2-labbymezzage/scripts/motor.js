@@ -12,13 +12,14 @@ var motor = {
 		sendButton.onclick = function(){
 			console.log("dude, it works!"); //ska ta bort sen
 			messageContent = document.querySelector("#messageContainer textarea").value; // hämtar ner innehållet från meddelandet och lägger den i en variabel "messageContent"
+			
 			console.log(messageContent);//ska ta bort sen
 			
 			
 			message = new Message(messageContent, new Date()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
 			console.log(message);
-			
+			alert(message);
 			
 		}
 	}
@@ -44,3 +45,5 @@ window.onload = motor.theSendFunction;
 //		
 //		alert(motor.messages[1]); // visar meddelandet från "brevet"
 //		}
+
+
