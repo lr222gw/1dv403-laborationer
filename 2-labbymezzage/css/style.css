@@ -40,3 +40,9 @@ body {
 	margin-bottom: 0;
 	font-size: 1.1em;
 }
+#prevMessages {
+width: 95%;
+background-color: blue;
+margin: 0 auto;
+border: black solid 1px;
+}
