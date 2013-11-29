@@ -28,15 +28,20 @@ var motor = {
 			var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
 			
 			var prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
-			prevTextBox.setAttribute("id", "prevTextBox"); //ger den ett ID
-			
-			prevTextBox.appendChild(document.createTextNode(message.getTheMessage));
+			prevTextBox.setAttribute("id", "prevTextBox"); //ger den ett ID			
+			prevTextBox.appendChild(document.createTextNode(message.getTheMessage())); // skickar med meddelandet..
 			
 			var prevDateBox = document.createElement("div");
 			prevDateBox.setAttribute("id", "prevDateBox");
+			prevDateBox.appendChild(document.createTextNode(message.getTheDate()));
 			
-			prevMessage.appendChild(prevTextBox);
-			prevMessage.appendChild(prevDateBox);
+			var soloMessage = document.createElement("div");
+			soloMessage.setAttribute("id", "soloMessage");
+			
+			soloMessage.appendChild(prevTextBox);
+			soloMessage.appendChild(prevDateBox);
+			
+			prevMessage.appendChild(soloMessage);
 
 		}
 	}

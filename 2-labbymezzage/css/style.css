@@ -9,7 +9,7 @@ body {
 	}
 #messagebox {
 	width: 95%;
-	height: 250px;
+	height: 100px;
 	margin: 0 auto;
 	display: block;
 }
@@ -45,4 +45,14 @@ width: 95%;
 background-color: blue;
 margin: 0 auto;
 border: black solid 1px;
+}
+#soloMessage {
+background-color: rgb(0, 187, 180);
+padding: 10px;
+box-shadow: inset 0 -20px 20px -20px;
+border-bottom: 3px solid rgb(0, 83, 73);
+}
+#prevMessage {
+margin-top: -20px;
+border-top: 2px rgb(0, 159, 173) solid;
 }
