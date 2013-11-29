@@ -8,9 +8,9 @@ var motor = {
 		var sendButton = document.getElementById("sendButton");  // hämtar ner sendButton från DOMen och lägger den i en variabel med samma namn...
 		var messageContent;
 		var message;
-		var prevMessage;
-		var prevTextBox;
-		var prevDateBox;
+		//var prevMessage;
+		//var prevTextBox;
+		//var prevDateBox;
 		
 		sendButton.onclick = function(){
 			console.log("dude, it works!"); //ska ta bort sen
@@ -25,12 +25,14 @@ var motor = {
 			
 			
 			
-			prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
+			var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
 			
-			prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
+			var prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
 			prevTextBox.setAttribute("id", "prevTextBox"); //ger den ett ID
 			
-			prevDateBox = document.createElement("div");
+			prevTextBox.appendChild(document.createTextNode(message.getTheMessage));
+			
+			var prevDateBox = document.createElement("div");
 			prevDateBox.setAttribute("id", "prevDateBox");
 			
 			prevMessage.appendChild(prevTextBox);
