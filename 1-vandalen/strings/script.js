@@ -20,7 +20,7 @@ window.onload = function(){
                                                 //                                  ^-i står för vilken bokstav i strängen to
 	        var the_aChar = 'a';
 	        var the_AChar = 'A';
-	        if (to[i] === the_aChar || to[i] === the_AChar)
+	        if (to[i] === the_aChar || to[i] === the_AChar) // to[i].toLowerCase() === "a"
 	        {
 	            output += "#";
 	            continue; // bryter loopen och börjar nu om 

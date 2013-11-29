@@ -51,7 +51,10 @@ var makePerson = function(persArr){
     objectArr.minAge = findMin;
     objectArr.averageAge = (allAgeTogheter) / differentAges.length;
     objectArr.averageAge = Math.round(objectArr.averageAge); // avnrundar så att det blir ett godkänt tal i testerna..
-    differentNames.sort(compare); // sorterar till bokstavsordning
+    //differentNames.sort(compare); // sorterar till bokstavsordning
+	differentNames.sort(function (a, b) {
+        return a.localeCompare( b, "sv");
+    })
     objectArr.names = differentNames.join(", ");
     
 

@@ -20,7 +20,7 @@ window.onload = function(){
 	        return [false, "Talet är utanför intervallet 0 - 100"];
 	    };
 	    if (number == secret) { // Fungerar inte att skriva "number === secret" här?? måste vara "==" ... hmm
-
+								// Number = string <-- därför fungerar inte === eftersom den testar typen också. // number = parseInt(number); <-- konvertering! då kan man använda ===
 	        return [true, "Grattis du vann! Det hemliga talet var " + secret + " och du behövde " + count+ " gissningar för att hitta det."];
 	    };
 	    if(number < secret){
