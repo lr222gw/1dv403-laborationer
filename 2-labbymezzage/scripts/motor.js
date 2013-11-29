@@ -8,6 +8,9 @@ var motor = {
 		var sendButton = document.getElementById("sendButton");  // hämtar ner sendButton från DOMen och lägger den i en variabel med samma namn...
 		var messageContent;
 		var message;
+		var prevMessage;
+		var prevTextBox;
+		var prevDateBox;
 		
 		sendButton.onclick = function(){
 			console.log("dude, it works!"); //ska ta bort sen
@@ -18,9 +21,21 @@ var motor = {
 			
 			message = new Message(messageContent, new Date()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
-			console.log(message);
-			alert(message);
+			console.log(message);//ska ta bort sen
 			
+			
+			
+			prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
+			
+			prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
+			prevTextBox.setAttribute("id", "prevTextBox"); //ger den ett ID
+			
+			prevDateBox = document.createElement("div");
+			prevDateBox.setAttribute("id", "prevDateBox");
+			
+			prevMessage.appendChild(prevTextBox);
+			prevMessage.appendChild(prevDateBox);
+
 		}
 	}
 
