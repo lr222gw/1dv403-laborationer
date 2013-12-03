@@ -14,6 +14,9 @@ var motor = {
 		
 		sendButton.onclick = function(){
 			console.log("dude, it works!"); //ska ta bort sen
+			
+			var mCount = document.getElementById("mCount"); 
+			
 			messageContent = document.querySelector("#messageContainer textarea").value; // hämtar ner innehållet från meddelandet och lägger den i en variabel "messageContent"
 			
 			console.log(messageContent);//ska ta bort sen
@@ -41,7 +44,11 @@ var motor = {
 			soloMessage.appendChild(prevTextBox);
 			soloMessage.appendChild(prevDateBox);
 			
-			prevMessage.appendChild(soloMessage);
+			prevMessage.appendChild(soloMessage); // Skriver ut meddelandet..
+
+			
+			 mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
+			
 
 		}
 	}
