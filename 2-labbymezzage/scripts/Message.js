@@ -5,7 +5,7 @@ function Message(message, theDate){
 		return message;
 	};
 	this.getTheDate = function(){
-		return theDate.toLocaleString(); //returnerar tillbaka år-månad-dag timme-minut-sekund
+		return theDate; //returnerar tillbaka år-månad-dag timme-minut-sekund
 	};
 	//Skapar set-metoder
 	this.setMessage = function(_message){

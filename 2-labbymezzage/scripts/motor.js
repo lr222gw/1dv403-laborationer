@@ -22,7 +22,7 @@ var motor = {
 			console.log(messageContent);//ska ta bort sen
 
 			
-			message = new Message(messageContent, new Date()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
+			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
 			console.log(message);//ska ta bort sen
 			
@@ -72,6 +72,11 @@ var motor = {
 		soloMessage.appendChild(timeB);
 		
 		prevMessage.appendChild(soloMessage); // Skriver ut meddelandet..
+		
+		removeB.onclick = function(e) {
+			
+			e.target.style.zoom = "4";
+		}
 		
 	}
 
