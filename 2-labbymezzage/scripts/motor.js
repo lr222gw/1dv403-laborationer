@@ -12,7 +12,9 @@ var motor = {
 		//var prevTextBox;
 		//var prevDateBox;
 		
-		sendButton.onclick = function(){
+		
+		
+		var sendFunction = function(){
 			console.log("dude, it works!"); //ska ta bort sen
 
 			
@@ -21,6 +23,8 @@ var motor = {
 			
 			console.log(messageContent);//ska ta bort sen
 
+			messageContent = messageContent.replace(/\n/g, '<br>'); // gör om "JavaScript-nyaRader" till "HTML-NyaRader"
+			
 			
 			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
@@ -30,11 +34,26 @@ var motor = {
 			
 			motor.renderMessages(message); // anropar metoden som skriver ut meddelandet, skickar med meddelandet skrivits.
 
-
-			
-			
-
 		}
+		
+		sendButton.onclick = sendFunction; // om man trycker på skicka knappen så anropas sendFunction...
+		document.querySelector("#messageContainer textarea").onkeypress = function(e){			
+			if(e.keyCode === 13) //Om man trycker enter så ska man skicka ett meddelande...
+			{
+				
+				if(e.shiftKey === true){ //hittade detta kodstycke här : http://stackoverflow.com/questions/6178431/how-to-catch-enter-keypress-on-textarea-but-not-shiftenter
+					
+				}
+				else{
+					sendFunction();
+					return false; // för att slippa blankraden..
+				}
+				
+				
+			}
+					
+		}; 
+		
 
 	},
 	
@@ -44,10 +63,13 @@ var motor = {
 		var theId = motor.messageHolder.length;
 		
 		var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
-	
+		
+		var aPtag = document.createElement("p");
+		aPtag.appendChild(document.createTextNode(message.getTheMessage()));
+		
 		var prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
 		prevTextBox.setAttribute("class", "prevTextBox"); //ger den ett ID			
-		prevTextBox.appendChild(document.createTextNode(message.getTheMessage())); // skickar med meddelandet..
+		prevTextBox.appendChild(aPtag); // skickar med meddelandet..
 		
 		var prevDateBox = document.createElement("div");
 		prevDateBox.setAttribute("class", "prevDateBox");
