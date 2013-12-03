@@ -75,8 +75,9 @@ var motor = {
 		
 		removeB.onclick = function(e) {
 			
-			e.target.style.zoom = "4";
+			e.target.parentNode.remove();
 		}
+		
 		
 	}
 
