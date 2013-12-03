@@ -15,7 +15,7 @@ var motor = {
 		sendButton.onclick = function(){
 			console.log("dude, it works!"); //ska ta bort sen
 
-			var mCount = document.getElementById("mCount"); 
+			
 			
 			messageContent = document.querySelector("#messageContainer textarea").value; // hämtar ner innehållet från meddelandet och lägger den i en variabel "messageContent"
 			
@@ -32,7 +32,6 @@ var motor = {
 
 
 			
-			 mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
 			
 
 		}
@@ -40,6 +39,9 @@ var motor = {
 	},
 	
 	renderMessages : function(message){	
+		var mCount = document.getElementById("mCount"); 
+		
+		var theId = motor.messageHolder.length;
 		
 		var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
 	
@@ -51,8 +53,11 @@ var motor = {
 		prevDateBox.setAttribute("class", "prevDateBox");
 		prevDateBox.appendChild(document.createTextNode(message.getTheDate()));
 		
+		var soloMessageStyler = document.createElement("div"); // skapar en "behållare" som jag kan styla till. Detta för att SoloMessage ändrar sitt namn för alla nya meddelanden...
+		soloMessageStyler.setAttribute("class", "soloMessageStyler");
+		
 		var soloMessage = document.createElement("div");
-		soloMessage.setAttribute("class", "soloMessage");
+		soloMessage.setAttribute("id", "soloMessage" + theId);
 	
 		var removeB = document.createElement("input"); // Skapar en knapp för att ta bort
 		removeB.setAttribute("class", "removeB");
@@ -66,17 +71,29 @@ var motor = {
 		timeB.setAttribute("value", "Kolla tidsstämpeln");
 		timeB.setAttribute("src", "time.png");
 		
+		soloMessageStyler.appendChild(soloMessage);
 		soloMessage.appendChild(prevTextBox);
 		soloMessage.appendChild(prevDateBox);
 		soloMessage.appendChild(removeB);
 		soloMessage.appendChild(timeB);
 		
-		prevMessage.appendChild(soloMessage); // Skriver ut meddelandet..
+		prevMessage.appendChild(soloMessageStyler); // Skriver ut meddelandet..
 		
 		removeB.onclick = function(e) {
 			
-			e.target.parentNode.remove();
+			var extractedId = e.target.parentNode.id;
+			extractedId = +extractedId.replace("soloMessage", "");
+			
+			motor.messageHolder.splice(extractedId - 1, 1);
+			
+			console.log(extractedId);
+			e.target.parentNode.parentNode.remove(); //skriver parentNode två gånger då e.target ligger under 2 st parents.. en för style och en för innehåll..
+			mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
+
 		}
+		
+		mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
+
 		
 		
 	}
