@@ -14,7 +14,7 @@ var motor = {
 		
 		sendButton.onclick = function(){
 			console.log("dude, it works!"); //ska ta bort sen
-			
+
 			var mCount = document.getElementById("mCount"); 
 			
 			messageContent = document.querySelector("#messageContainer textarea").value; // hämtar ner innehållet från meddelandet och lägger den i en variabel "messageContent"
@@ -41,8 +41,25 @@ var motor = {
 			var soloMessage = document.createElement("div");
 			soloMessage.setAttribute("id", "soloMessage");
 			
+			var removeB = document.createElement("input"); // Skapar en knapp för att ta bort
+			removeB.setAttribute("id", "removeB");
+			removeB.setAttribute("type", "image");
+			removeB.setAttribute("value", "Ta bort");
+			removeB.setAttribute("src", "remove.png");
+			
+			var timeB = document.createElement("input"); // Skapar en knapp för att kolla exakt klockslag
+			timeB.setAttribute("id", "timeB");
+			timeB.setAttribute("type", "image");
+			timeB.setAttribute("value", "Kolla tidsstämpeln");
+			timeB.setAttribute("src", "time.png");
+
+			
+
+			
 			soloMessage.appendChild(prevTextBox);
 			soloMessage.appendChild(prevDateBox);
+			soloMessage.appendChild(removeB);
+			soloMessage.appendChild(timeB);
 			
 			prevMessage.appendChild(soloMessage); // Skriver ut meddelandet..
 

@@ -56,3 +56,8 @@ border-bottom: 3px solid rgb(0, 83, 73);
 margin-top: -20px;
 border-top: 2px rgb(0, 159, 173) solid;
 }
+
+#removeB, #timeB{
+	height: 40px;
+	width: 40px;
+}
