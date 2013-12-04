@@ -26,7 +26,7 @@ var motor = {
 			console.log(messageContent);//ska ta bort sen
 
 			//messageContent = messageContent.replace(/\n/g, '<br>'); // gör om "JavaScript-nyaRader" till "HTML-NyaRader"
-			// ^detta görs i konstruktorfunktionen!! :3
+			// ^detta görs istället i konstruktorfunktionen!! :3
 			
 			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			
@@ -74,7 +74,7 @@ var motor = {
 		var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
 		
 		var aPtag = document.createElement("p");
-		aPtag.appendChild(document.createTextNode(message.getTheMessage()));
+		aPtag.appendChild(document.createTextNode(message.getHTMLText())); // hämtar ut meddelandets text...
 		
 		var prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
 		prevTextBox.setAttribute("class", "prevTextBox"); //ger den ett ID			
@@ -122,12 +122,12 @@ var motor = {
 			
 			var removeThisMessage;
 			var i;
-			var extractedMid = e.target.parentNode.getAttribute("mId");	
+			var extractedMid = + e.target.parentNode.getAttribute("mId");	
 			
 			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
 				
 				if(motor.messageHolder[i].mId === extractedMid){ // när meddelandets "mId" är samma som meddelandet som ska tas bort "mId" så deklareras en variabel som håller koll på vilket array-element som ska tas bort!
-					removeThisMessage = motor.messageHolder[i];
+					removeThisMessage =  i;
 					
 					break;
 				}

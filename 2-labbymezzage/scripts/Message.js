@@ -18,17 +18,21 @@ function Message(message, theDate){
 } // med denna konstruktorfunktion kan vi instansiera nya meddelanden.. 
 
 Message.prototype.toString = function() {
-	return this.getTheMessage()+" ("+this.getTheDate()+")";
+	return this.getHTMLText()+" ("+this.getTheDate()+")"; 
 };
-this.Message.prototype.getTextMessage = function(){ // En priviligerad metod.
-	return this.getTheMessage();
+// Felet är att dessa metoder under, ska heta "getHTMLtext"
+Message.prototype.getHTMLText = function(){  // getTheMessage <-- hette denna förut..
+	return this.getTheMessage().replace(/[\n\r]/g, "<br/>");
 };
-this.Message.prototype.getDateTime = function() {
+Message.prototype.getDateTime = function() {// En priviligerad metod <-- ändrade från priviligerad till icke priviligerad..
 	return this.getTheDate();
 };
-this.Message.prototype.setTextMessage = function(_text) {
-	this.setMessage(_text);
-};
-this.Message.prototype.setDateTime = function(_date) {
-	this.setTheDate(_date);
-};
+
+
+// tar bort dessa då de ej används av mitt program.. låter dem vara kvar som referens..
+//this.Message.prototype.setTextMessage = function(_text) {
+//	this.setMessage(_text).replace(/[\n\r]/g, "<br>");
+//};
+//this.Message.prototype.setDateTime = function(_date) {
+//	this.setTheDate(_date);
+//};
