@@ -51,19 +51,17 @@ var motor = {
 			{
 				
 				if(e.shiftKey === true){ //hittade detta kodstycke här : http://stackoverflow.com/questions/6178431/how-to-catch-enter-keypress-on-textarea-but-not-shiftenter
-					
+					//tom, just carry on!
 				}
 				else{
 					sendFunction();
 					return false; // för att slippa blankraden..
-				}
-				
+				}				
 				
 			}
 					
 		}; 
 		
-
 	},
 	
 	renderMessage : function(message){	
@@ -74,7 +72,10 @@ var motor = {
 		var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
 		
 		var aPtag = document.createElement("p");
-		aPtag.appendChild(document.createTextNode(message.getHTMLText())); // hämtar ut meddelandets text...
+		//aPtag.appendChild(document.createTextNode(message.getHTMLText())); // hämtar ut meddelandets text...
+		// HITTADE FELET TILL <BR> !  ^ DEENNA borde se ut ↓
+		aPtag.innerHTML = message.getHTMLText(); // eftersom vi gjorde en textNode så blev (trolgitvis) all kod formaterad till text.. dvs html Element blev sjusterade s åatt det skulle se ut som text..
+		
 		
 		var prevTextBox = document.createElement("div"); //skapar en div där min text ska ligga i :)
 		prevTextBox.setAttribute("class", "prevTextBox"); //ger den ett ID			
@@ -103,11 +104,15 @@ var motor = {
 		timeB.setAttribute("value", "Kolla tidsstämpeln");
 		timeB.setAttribute("src", "time.png");
 		
+		var aContainer = document.createElement("aContainer");
+		aContainer.setAttribute("class", "acontainer")
+		
 		soloMessageStyler.appendChild(soloMessage);
 		soloMessage.appendChild(prevTextBox);
-		soloMessage.appendChild(prevDateBox);
-		soloMessage.appendChild(removeB);
-		soloMessage.appendChild(timeB);
+		soloMessage.appendChild(aContainer);
+		aContainer.appendChild(removeB);
+		aContainer.appendChild(timeB);
+		aContainer.appendChild(prevDateBox); //flyttar denna länngre ner då det blir enkalre att skjustera om i CSS
 		
 		removeB.onclick = function(e) {
 			
