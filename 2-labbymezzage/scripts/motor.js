@@ -127,7 +127,7 @@ var motor = {
 			
 			var removeThisMessage;
 			var i;
-			var extractedMid = + e.target.parentNode.getAttribute("mId");	// "+" gör om allt till "number"/int...
+			var extractedMid = + e.target.parentNode.parentNode.getAttribute("mId");	// "+" gör om allt till "number"/int...
 			
 			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
 				
