@@ -30,7 +30,7 @@ var motor = {
 			
 			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			
-			message.mId = motor.messageHolder.length; // ger Message ett UNIKT id som ej ändras, med denna kan jag ta  bort message från arrayen!
+			message.mId = motor.messageHolder.length + Math.random(); // ger Message ett UNIKT id som ej ändras, med denna kan jag ta  bort message från arrayen!
 			
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
 			console.log(message);//ska ta bort sen
@@ -122,12 +122,12 @@ var motor = {
 			
 			var removeThisMessage;
 			var i;
-			var extractedMid = + e.target.parentNode.getAttribute("mId");	
+			var extractedMid = + e.target.parentNode.getAttribute("mId");	// "+" gör om allt till "number"/int...
 			
 			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
 				
 				if(motor.messageHolder[i].mId === extractedMid){ // när meddelandets "mId" är samma som meddelandet som ska tas bort "mId" så deklareras en variabel som håller koll på vilket array-element som ska tas bort!
-					removeThisMessage =  i;
+					removeThisMessage =  i; // array nummer i ska tas bort!
 					
 					break;
 				}
