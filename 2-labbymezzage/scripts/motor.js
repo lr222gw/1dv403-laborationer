@@ -16,6 +16,8 @@ var motor = {
 		
 		var sendFunction = function(){
 			console.log("dude, it works!"); //ska ta bort sen
+			
+
 
 			
 			
@@ -27,17 +29,21 @@ var motor = {
 			
 			
 			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
+			
+			message.mId = motor.messageHolder.length; // ger Message ett UNIKT id som ej ändras, med denna kan jag ta  bort message från arrayen!
+			
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
 			console.log(message);//ska ta bort sen
 			
 			document.querySelector("#messageContainer textarea").value = ""; // Tömmer textarean så att nästa meddelande man ska skicka kan börjas skriva på utan att ta bort det gamla meddelandet..
+			
 			
 			motor.renderMessage(message); // anropar metoden som skriver ut meddelandet, skickar med meddelandet skrivits.
 			
 			motor.renderMessages();
 
 		}
-		
+
 		//Kod för knapptryckning...
 		sendButton.onclick = sendFunction; // om man trycker på skicka knappen så anropas sendFunction...
 		document.querySelector("#messageContainer textarea").onkeypress = function(e){			
@@ -62,7 +68,7 @@ var motor = {
 	
 	renderMessage : function(message){	
 		var mCount = document.getElementById("mCount"); 
-		
+		var that = this;
 		//var theId = motor.messageHolder.length;
 		
 		var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
@@ -79,10 +85,11 @@ var motor = {
 		prevDateBox.appendChild(document.createTextNode(message.getTheDate()));
 		
 		var soloMessageStyler = document.createElement("div"); // skapar en "behållare" som jag kan styla till. Detta för att SoloMessage ändrar sitt namn för alla nya meddelanden...
-		soloMessageStyler.setAttribute("class", "soloMessageStyler");
+		soloMessageStyler.setAttribute("class", "soloMessageStyler");		
 		
 		var soloMessage = document.createElement("div");
 		soloMessage.setAttribute("class", "soloMessage");
+		soloMessage.setAttribute("mId", message.mId)
 	
 		var removeB = document.createElement("input"); // Skapar en knapp för att ta bort
 		removeB.setAttribute("class", "removeB");
@@ -102,20 +109,36 @@ var motor = {
 		soloMessage.appendChild(removeB);
 		soloMessage.appendChild(timeB);
 		
-		prevMessage.appendChild(soloMessageStyler); // Skriver ut meddelandet..
-		
 		removeB.onclick = function(e) {
 			
 			//var extractedId = e.target.parentNode.id;
 			//extractedId = +extractedId.replace("soloMessage", "");
-			//motor.messageHolder.splice(extractedId - 1, 1);
+			var removeThisMessage;
+			var i;
+			var extractedMid = e.target.parentNode.getAttribute("mId");	
+			
+			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
+				
+				if(motor.messageHolder[i].mId === extractedMid){
+					removeThisMessage = motor.messageHolder[i];
+					
+					break;
+				}
+				else{
+					console.log("nope"+ i);
+				}
+				
+			}
+			motor.messageHolder.splice(removeThisMessage, 1);
+			//motor.messageHolder.splice(extractedMid - 1, 1);
 			//console.log(extractedId);
 			//e.target.parentNode.parentNode.remove(); //skriver parentNode två gånger då e.target ligger under 2 st parents.. en för style och en för innehåll..
-			
+
 			e.target.style.color = "red";
 			motor.renderMessages();
 
 		}	
+		prevMessage.appendChild(soloMessageStyler); // Skriver ut meddelandet..
 		
 		
 	},
