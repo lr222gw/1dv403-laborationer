@@ -67,6 +67,8 @@ body {
 	border-radius: 5px 0 0 5px;
 	padding: 1%;
 	min-height: 39px;
+	font-size: 1.5em;
+	font-family: sans-serif;
 }
 .prevDateBox {
 	float: right;
