@@ -28,7 +28,7 @@ var motor = {
 			//messageContent = messageContent.replace(/\n/g, '<br>'); // gör om "JavaScript-nyaRader" till "HTML-NyaRader"
 			// ^detta görs istället i konstruktorfunktionen!! :3
 			
-			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
+			message = new Message(messageContent, new Date()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			
 			message.mId = motor.messageHolder.length + Math.floor(Math.random()* 10000 + 1); // ger Message ett UNIKT id som ej ändras, med denna kan jag ta  bort message från arrayen!
 			
@@ -83,7 +83,7 @@ var motor = {
 		
 		var prevDateBox = document.createElement("div");
 		prevDateBox.setAttribute("class", "prevDateBox");
-		prevDateBox.appendChild(document.createTextNode(message.getTheDate()));
+		prevDateBox.appendChild(document.createTextNode(message.getTheDate().toLocaleTimeString()));
 		
 		var soloMessageStyler = document.createElement("div"); // skapar en "behållare" som jag kan styla till. Detta för att SoloMessage ändrar sitt namn för alla nya meddelanden...
 		soloMessageStyler.setAttribute("class", "soloMessageStyler");		
@@ -118,30 +118,16 @@ var motor = {
 			
 			//var extractedId = e.target.parentNode.id;
 			//extractedId = +extractedId.replace("soloMessage", "");
-			
+			var thisId;
 			var yesORno = confirm("säker på att du vill ta bort detta meddelande?");
 			
 			if(yesORno === false){
 				return;
 			}
 			
-			var removeThisMessage;
-			var i;
-			var extractedMid = + e.target.parentNode.parentNode.getAttribute("mId");	// "+" gör om allt till "number"/int...
-			
-			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
-				
-				if(motor.messageHolder[i].mId === extractedMid){ // när meddelandets "mId" är samma som meddelandet som ska tas bort "mId" så deklareras en variabel som håller koll på vilket array-element som ska tas bort!
-					removeThisMessage =  i; // array nummer i ska tas bort!
-					
-					break;
-				}
-				else{
-					console.log("nope"+ i); // onödig, endast för testning..
-				}
-				
-			}
-			motor.messageHolder.splice(removeThisMessage, 1); // Tar bort Array-Elementet med samma "mId" som elementets parentNode som man tryckte på! 
+			thisId = motor.findMyMessage(e);
+
+			motor.messageHolder.splice(thisId, 1); // Tar bort Array-Elementet med samma "mId" som elementets parentNode som man tryckte på! 
 			
 			//motor.messageHolder.splice(extractedMid - 1, 1);
 			//console.log(extractedId);
@@ -149,7 +135,15 @@ var motor = {
 
 			motor.renderMessages(); // skriver ut alla meddelanden igen! eftersom att man behöver uppdatera vad som ska visas.. = vad som finns kvar i arrayen..
 
-		}	
+		}
+		timeB.onclick = function(e){
+			var thisId;
+			
+			thisId = motor.findMyMessage(e);
+			
+			alert(motor.messageHolder[thisId].getDateTime());
+		}
+			
 		prevMessage.appendChild(soloMessageStyler); // Skriver ut meddelandet..
 		
 		
@@ -164,6 +158,27 @@ var motor = {
 		}
 		mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
 
+	},
+	findMyMessage : function(e){
+		
+			var thisId;
+			var i;
+			var extractedMid = + e.target.parentNode.parentNode.getAttribute("mId");	// "+" gör om allt till "number"/int...
+			
+			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
+				
+				if(motor.messageHolder[i].mId === extractedMid){ // när meddelandets "mId" är samma som meddelandet som ska tas bort "mId" så deklareras en variabel som håller koll på vilket array-element som ska tas bort!
+					thisId =  i; // array nummer i ska tas bort!
+					
+					break;
+				}
+				else{
+					console.log("nope"+ i); // onödig, endast för testning..
+				}
+				
+			}
+		
+		return thisId;
 	}
 
 
