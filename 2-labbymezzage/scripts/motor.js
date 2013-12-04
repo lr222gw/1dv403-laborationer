@@ -25,8 +25,8 @@ var motor = {
 			
 			console.log(messageContent);//ska ta bort sen
 
-			messageContent = messageContent.replace(/\n/g, '<br>'); // gör om "JavaScript-nyaRader" till "HTML-NyaRader"
-			
+			//messageContent = messageContent.replace(/\n/g, '<br>'); // gör om "JavaScript-nyaRader" till "HTML-NyaRader"
+			// ^detta görs i konstruktorfunktionen!! :3
 			
 			message = new Message(messageContent, new Date().toLocaleTimeString()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			
@@ -113,29 +113,36 @@ var motor = {
 			
 			//var extractedId = e.target.parentNode.id;
 			//extractedId = +extractedId.replace("soloMessage", "");
+			
+			var yesORno = confirm("säker på att du vill ta bort detta meddelande?");
+			
+			if(yesORno === false){
+				return;
+			}
+			
 			var removeThisMessage;
 			var i;
 			var extractedMid = e.target.parentNode.getAttribute("mId");	
 			
 			for( i = 0; i < motor.messageHolder.length; i++){ // For loop som hittar meddelandet som skas ta bort!
 				
-				if(motor.messageHolder[i].mId === extractedMid){
+				if(motor.messageHolder[i].mId === extractedMid){ // när meddelandets "mId" är samma som meddelandet som ska tas bort "mId" så deklareras en variabel som håller koll på vilket array-element som ska tas bort!
 					removeThisMessage = motor.messageHolder[i];
 					
 					break;
 				}
 				else{
-					console.log("nope"+ i);
+					console.log("nope"+ i); // onödig, endast för testning..
 				}
 				
 			}
-			motor.messageHolder.splice(removeThisMessage, 1);
+			motor.messageHolder.splice(removeThisMessage, 1); // Tar bort Array-Elementet med samma "mId" som elementets parentNode som man tryckte på! 
+			
 			//motor.messageHolder.splice(extractedMid - 1, 1);
 			//console.log(extractedId);
 			//e.target.parentNode.parentNode.remove(); //skriver parentNode två gånger då e.target ligger under 2 st parents.. en för style och en för innehåll..
 
-			e.target.style.color = "red";
-			motor.renderMessages();
+			motor.renderMessages(); // skriver ut alla meddelanden igen! eftersom att man behöver uppdatera vad som ska visas.. = vad som finns kvar i arrayen..
 
 		}	
 		prevMessage.appendChild(soloMessageStyler); // Skriver ut meddelandet..
