@@ -32,10 +32,13 @@ var motor = {
 			
 			document.querySelector("#messageContainer textarea").value = ""; // Tömmer textarean så att nästa meddelande man ska skicka kan börjas skriva på utan att ta bort det gamla meddelandet..
 			
-			motor.renderMessages(message); // anropar metoden som skriver ut meddelandet, skickar med meddelandet skrivits.
+			motor.renderMessage(message); // anropar metoden som skriver ut meddelandet, skickar med meddelandet skrivits.
+			
+			motor.renderMessages();
 
 		}
 		
+		//Kod för knapptryckning...
 		sendButton.onclick = sendFunction; // om man trycker på skicka knappen så anropas sendFunction...
 		document.querySelector("#messageContainer textarea").onkeypress = function(e){			
 			if(e.keyCode === 13) //Om man trycker enter så ska man skicka ett meddelande...
@@ -57,10 +60,10 @@ var motor = {
 
 	},
 	
-	renderMessages : function(message){	
+	renderMessage : function(message){	
 		var mCount = document.getElementById("mCount"); 
 		
-		var theId = motor.messageHolder.length;
+		//var theId = motor.messageHolder.length;
 		
 		var prevMessage = document.getElementById("prevMessage"); //hämtar ner containern där mina meddelanden ska ligga			
 		
@@ -79,7 +82,7 @@ var motor = {
 		soloMessageStyler.setAttribute("class", "soloMessageStyler");
 		
 		var soloMessage = document.createElement("div");
-		soloMessage.setAttribute("id", "soloMessage" + theId);
+		soloMessage.setAttribute("class", "soloMessage");
 	
 		var removeB = document.createElement("input"); // Skapar en knapp för att ta bort
 		removeB.setAttribute("class", "removeB");
@@ -103,21 +106,29 @@ var motor = {
 		
 		removeB.onclick = function(e) {
 			
-			var extractedId = e.target.parentNode.id;
-			extractedId = +extractedId.replace("soloMessage", "");
+			//var extractedId = e.target.parentNode.id;
+			//extractedId = +extractedId.replace("soloMessage", "");
+			//motor.messageHolder.splice(extractedId - 1, 1);
+			//console.log(extractedId);
+			//e.target.parentNode.parentNode.remove(); //skriver parentNode två gånger då e.target ligger under 2 st parents.. en för style och en för innehåll..
 			
-			motor.messageHolder.splice(extractedId - 1, 1);
+			e.target.style.color = "red";
+			motor.renderMessages();
+
+		}	
+		
+		
+	},
+	renderMessages : function(){
+		var i = 0;
+		document.getElementById("prevMessage").innerHTML= ""; // tar bort allt som har skrivits... så att det kan bli ersatt igen.
+		for(i; i < motor.messageHolder.length; i++){ // skriver ut alla meddelanden
 			
-			console.log(extractedId);
-			e.target.parentNode.parentNode.remove(); //skriver parentNode två gånger då e.target ligger under 2 st parents.. en för style och en för innehåll..
-			mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
+			motor.renderMessage(motor.messageHolder[i]);
 
 		}
-		
 		mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
 
-		
-		
 	}
 
 
