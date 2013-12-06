@@ -17,12 +17,9 @@ var motor = {
 		var sendFunction = function(){
 			console.log("dude, it works!"); //ska ta bort sen
 			
-
-
-			
-			
+			if(document.querySelector("#messageContainer textarea").value != ""){ // om strängen är tom ska inget göras..
 			messageContent = document.querySelector("#messageContainer textarea").value; // hämtar ner innehållet från meddelandet och lägger den i en variabel "messageContent"
-			
+
 			console.log(messageContent);//ska ta bort sen
 
 			//messageContent = messageContent.replace(/\n/g, '<br>'); // gör om "JavaScript-nyaRader" till "HTML-NyaRader"
@@ -38,9 +35,13 @@ var motor = {
 			document.querySelector("#messageContainer textarea").value = ""; // Tömmer textarean så att nästa meddelande man ska skicka kan börjas skriva på utan att ta bort det gamla meddelandet..
 			
 			
-			motor.renderMessage(message); // anropar metoden som skriver ut meddelandet, skickar med meddelandet skrivits.
+			//motor.renderMessage(message); // anropar metoden som skriver ut meddelandet, skickar med meddelandet skrivits.
+			//^Onödig då ↓tar hand om detta...
 			
 			motor.renderMessages();
+			}else{
+				console.log("meddelandet måste ha någon text för att kunna skickas..");
+			}
 
 		}
 
@@ -64,7 +65,9 @@ var motor = {
 		
 	},
 	
-	renderMessage : function(message){	
+	renderMessage : function(messageId){	
+		//tar in platsen på arrayen^, sen gör message variabeln i denna funktion
+		var message = motor.messageHolder[messageId];
 		var mCount = document.getElementById("mCount"); 
 		var that = this;
 		//var theId = motor.messageHolder.length;
@@ -118,16 +121,18 @@ var motor = {
 			
 			//var extractedId = e.target.parentNode.id;
 			//extractedId = +extractedId.replace("soloMessage", "");
-			var thisId;
+			//var thisId;
 			var yesORno = confirm("säker på att du vill ta bort detta meddelande?");
 			
 			if(yesORno === false){
 				return;
 			}
 			
-			thisId = motor.findMyMessage(e);
+			//thisId = motor.findMyMessage(e);
 
-			motor.messageHolder.splice(thisId, 1); // Tar bort Array-Elementet med samma "mId" som elementets parentNode som man tryckte på! 
+			motor.messageHolder.splice(messageId, 1); // tar in Id't från det skapa <-- nu vet denna metod vilket ID DEN har. För varje meddelande som skapas skapas denna, och denna är unik för varje knapp = knappen vet vilken knapp som skas tas bort!
+													// gammal lösning..-> // Tar bort Array-Elementet med samma "mId" som elementets parentNode som man tryckte på! 
+								
 			
 			//motor.messageHolder.splice(extractedMid - 1, 1);
 			//console.log(extractedId);
@@ -137,11 +142,11 @@ var motor = {
 
 		}
 		timeB.onclick = function(e){
-			var thisId;
+			//var thisId;
 			
-			thisId = motor.findMyMessage(e);
+			//thisId = motor.findMyMessage(e); <-- ny lösning ↓ 
 			
-			alert(motor.messageHolder[thisId].getDateTime());
+			alert(motor.messageHolder[messageId].getDateTime());
 		}
 			
 		prevMessage.appendChild(soloMessageStyler); // Skriver ut meddelandet..
@@ -153,7 +158,7 @@ var motor = {
 		document.getElementById("prevMessage").innerHTML= ""; // tar bort allt som har skrivits... så att det kan bli ersatt igen.
 		for(i; i < motor.messageHolder.length; i++){ // skriver ut alla meddelanden
 			
-			motor.renderMessage(motor.messageHolder[i]);
+			motor.renderMessage(i); // skickar med nummeret som hänvisar till "rätt" message i arrayen..
 
 		}
 		mCount.innerHTML = "Antal meddelanden: " + motor.messageHolder.length; //Skriver ut antalet meddelanden som finns i messageHolder. = skriver ut antalet meddelanden som skapats..
