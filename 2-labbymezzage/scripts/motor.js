@@ -16,9 +16,9 @@ var motor = {
 		
 		var sendFunction = function(){
 			console.log("dude, it works!"); //ska ta bort sen
-			
-			if(document.querySelector("#messageContainer textarea").value != ""){ // om strängen är tom ska inget göras..
 			messageContent = document.querySelector("#messageContainer textarea").value; // hämtar ner innehållet från meddelandet och lägger den i en variabel "messageContent"
+
+			if( messageContent.trim() != ""){ // om strängen är tom ska inget göras..
 
 			console.log(messageContent);//ska ta bort sen
 
@@ -27,7 +27,7 @@ var motor = {
 			
 			message = new Message(messageContent, new Date()); // Skapar ett nytt MessageObject med innehållet från brevet och datumet som är nu!
 			
-			message.mId = motor.messageHolder.length + Math.floor(Math.random()* 10000 + 1); // ger Message ett UNIKT id som ej ändras, med denna kan jag ta  bort message från arrayen!
+			//message.mId = motor.messageHolder.length + Math.floor(Math.random()* 10000 + 1); // ger Message ett UNIKT id som ej ändras, med denna kan jag ta  bort message från arrayen!
 			
 			motor.messageHolder.push(message); // Puttar in mitt nya object i en array!
 			console.log(message);//ska ta bort sen
