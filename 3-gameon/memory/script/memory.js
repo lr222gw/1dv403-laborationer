@@ -6,6 +6,7 @@ var memory = {
 	randomPlats : [],
 	
 	startFunction : function(){
+		
 		do{	
 			var brickAmount = + prompt("Hur många brickpar vill du köra med?(2-9)"); // ta reda på hur många par användaren vill spela med
 		
@@ -13,15 +14,20 @@ var memory = {
 				
 				memory._2brickaMaker(brickAmount);
 				break;
-			}else if(brickAmount === false){ // stänger ner om man trycker på cancel..  
+			}else if(brickAmount == false){ // stänger ner om man trycker på cancel..  
 				break;
 			}else{	//om talet är ogiltigt så ska detta hända och allt ska loopas om tills ett giltigt tal fylls i.. ändrar nog denna senare..  
 				console.log("OPS not a number...");
 			}
 		}while(true)
 		
+		var rowsAndBricks = Math.ceil(Math.sqrt(memory.brickArray.length)); // Räknar ut roten av brickArrayens längd 
+
+		memory.randomPlats = RandomGenerator.getPictureArray(rowsAndBricks, rowsAndBricks);
 		
-		memory.randomPlats = RandomGenerator.getPictureArray(5, 2);
+		memory.placeBricks(rowsAndBricks);
+		
+		
 		
 		
 		
@@ -61,16 +67,27 @@ var memory = {
 		};		
 	},
 	
-	placeBricks : function(){
-		var i, j, brickRow, rowsAndBricks;
+	placeBricks : function(rowsAndBricks){
+		var i, j, a2brick, brickPlace, brickRow;
 		
-		rowsAndBricks = Math.ceil(Math.sqrt(memory.brickArray.length)); // Räknar ut roten av Math och rundar av uppåt.. då vi hellre har för många rader än för några..
 		
 		for( i = 0; i < rowsAndBricks; i += 1 ){ //Skapar en rad för varje rad som krävs..
 			
 			brickRow = document.createElement("div");
 			
-			for(j = 0; j < rowsAndBricks; i +=1 ){//skapar antal brickplatser för ^row..
+			for( j = 0;j < rowsAndBricks; j +=1 ){//skapar antal brickplatser för ^row..							
+				
+				brickPlace = document.createElement("div");
+				brickPlace.setAttribute("class", "brickPlace");
+				
+				a2brick = memory.brickArray[memory.randomPlats[j]];
+				
+				if(brickPlace.child === a2brick.getPic() ){
+					
+				}else{
+					brickPlace.innerHTML = a2brick.getPic();
+				}
+				
 				
 			}
 			

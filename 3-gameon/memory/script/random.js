@@ -3,20 +3,20 @@ var RandomGenerator = {
 	/*
 		Denna metod tar antalet rader och columner som inparameter.
 		
-		Metoden returnerar en array innehållandes utslumpade tal mellan 1 och (rows*cols)/2. Varje tal representeras två
-		gånger och motsvarar således en spelbricka. 
+		Metoden returnerar en array innehï¿½llandes utslumpade tal mellan 1 och (rows*cols)/2. Varje tal representeras tvï¿½
+		gï¿½nger och motsvarar sï¿½ledes en spelbricka. 
 		
-		I en 4*4 matris kan Arrayen t.ex. se ut så här:
+		I en 4*4 matris kan Arrayen t.ex. se ut sï¿½ hï¿½r:
 		[1,2,6,8,6,2,5,3,1,3,7,5,8,4,4,7]
 		
-		I en 2*4 matris kan Arrayen t.ex. se ut så här:				
+		I en 2*4 matris kan Arrayen t.ex. se ut sï¿½ hï¿½r:				
 		[3,4,4,1,2,1,2,3]
 	*/
 	
 	getPictureArray: function(rows, cols)
 	{
 		var numberOfImages = rows*cols;
-		var maxImageNumber = numberOfImages/2;
+		var maxImageNumber = numberOfImages/2; 
 	
 	   	var imgPlace = [];
 	
@@ -24,7 +24,7 @@ var RandomGenerator = {
 	   for(var i=0; i<numberOfImages; i++)
 		  imgPlace[i] = 0;
 	
-		for(var currentImageNumber=1; currentImageNumber<=maxImageNumber; currentImageNumber++)
+		for(var currentImageNumber=1; currentImageNumber<=maxImageNumber; currentImageNumber++) 
 		{		
 			var imageOneOK = false;
 			var imageTwoOK = false;
