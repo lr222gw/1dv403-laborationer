@@ -6,7 +6,7 @@ var memory = {
 	randomPlats : [],
 	
 	startFunction : function(){
-		
+		var rowsAndBricks;
 		do{	
 			var brickAmount = + prompt("Hur många brickpar vill du köra med?(2-9)"); // ta reda på hur många par användaren vill spela med
 		
@@ -21,9 +21,11 @@ var memory = {
 			}
 		}while(true)
 		
-		var rowsAndBricks = Math.ceil(Math.sqrt(memory.brickArray.length)); // Räknar ut roten av brickArrayens längd 
+		rowsAndBricks = Math.ceil(Math.sqrt(memory.brickArray.length)); // Räknar ut roten av brickArrayens längd och avrundar uppåt...
+		
 
-		memory.randomPlats = RandomGenerator.getPictureArray(rowsAndBricks, rowsAndBricks);
+		memory.randomPlats = RandomGenerator.getPictureArray(memory.brickArray.length, 2); //matar in arrayens längd och en 2a då vi ska ta arrayens längd * 2...
+																						 // ^för att då fungerar min placeBricks-function! 
 		
 		memory.placeBricks(rowsAndBricks);
 		
@@ -68,25 +70,36 @@ var memory = {
 	},
 	
 	placeBricks : function(rowsAndBricks){
-		var i, j, a2brick, brickPlace, brickRow;
+		var i, j, k, a2brick, brickPlace, brickRow, brickToPlace;
 		
 		
 		for( i = 0; i < rowsAndBricks; i += 1 ){ //Skapar en rad för varje rad som krävs..
 			
 			brickRow = document.createElement("div");
 			
-			for( j = 0;j < rowsAndBricks; j +=1 ){//skapar antal brickplatser för ^row..							
+			for( j = 0 ;j < rowsAndBricks; j +=1 ){//skapar antal brickplatser för ^row..							
 				
 				brickPlace = document.createElement("div");
 				brickPlace.setAttribute("class", "brickPlace");
 				
-				a2brick = memory.brickArray[memory.randomPlats[j]];
+				for(k = 0; k < memory.brickArray.length; k += 1){ 
+					
+					if(memory.brickArray[k].getId() === memory.randomPlats[j] - 1 ){ // ger minus till randomplats då de siffrorna ligger på en "level upp"...
+						brickToPlace = memory.brickArray[k];
+						break;
+					}
+					
+				}
 				
-				if(brickPlace.child === a2brick.getPic() ){
+				//a2brick = memory.brickArray[memory.randomPlats[j]];
+				
+				if(brickPlace.child === brickToPlace.getPic() ){
 					
 				}else{
-					brickPlace.innerHTML = a2brick.getPic();
+					brickPlace.innerHTML= brickToPlace.getPic();
 				}
+				
+				document.getElementById("box").appendChild(brickPlace);
 				
 				
 			}
