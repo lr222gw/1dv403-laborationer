@@ -70,7 +70,7 @@ var memory = {
 	},
 	
 	placeBricks : function(rowsAndBricks){
-		var i, j, k, a2brick, brickPlace, brickRow, brickToPlace;
+		var i, j, k, a2brick, brickPlaceIMG, brickPlaceA, brickRow, brickToPlace;
 		
 		
 		for( i = 0; i < rowsAndBricks; i += 1 ){ //Skapar en rad för varje rad som krävs..
@@ -79,8 +79,8 @@ var memory = {
 			
 			for( j = 0 ;j < rowsAndBricks; j +=1 ){//skapar antal brickplatser för ^row..							
 				
-				brickPlace = document.createElement("div");
-				brickPlace.setAttribute("class", "brickPlace");
+				brickPlaceIMG = document.createElement("img");
+				brickPlaceIMG.setAttribute("class", "brickPlace");
 				
 				for(k = 0; k < memory.brickArray.length; k += 1){ 
 					
@@ -93,13 +93,15 @@ var memory = {
 				
 				//a2brick = memory.brickArray[memory.randomPlats[j]];
 				
-				if(brickPlace.child === brickToPlace.getPic() ){
+				if(brickPlaceIMG.child === brickToPlace.getPic() ){
 					
 				}else{
-					brickPlace.innerHTML= brickToPlace.getPic();
+					brickPlaceIMG.setAttribute("src", brickToPlace.getPic());
 				}
 				
-				document.getElementById("box").appendChild(brickPlace);
+				brickPlaceA = document.createElement("a").appendChild(brickPlaceIMG);
+				
+				document.getElementById("box").appendChild(brickPlaceA);
 				
 				
 			}
