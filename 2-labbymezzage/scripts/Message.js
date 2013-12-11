@@ -23,7 +23,7 @@ Message.prototype.toString = function() {
 // Felet är att dessa metoder under, ska heta "getHTMLtext"
 Message.prototype.getHTMLText = function(){  // getTheMessage <-- hette denna förut..
 	return this.getTheMessage().replace(/[\n\r]/g, "<br/>");
-}
+};
 Message.prototype.getDateTime = function() {// En priviligerad metod <-- ändrade från priviligerad till icke priviligerad..
 	return this.getTheDate();
 };
