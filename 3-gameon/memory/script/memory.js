@@ -8,27 +8,39 @@ var memory = {
 		
 		memory.MemoryObj(3);
 		memory.randomPlacement();
+		memory.placeCards(4, 4);
 		
 		
 		
 	},
 	
 	MemoryObj : function(cardCoupleAmount){
-		var i, j, coupleId, card;
+		var i, j, coupleId, card, img;
 		for(i = 0; i < cardCoupleAmount; i += 1){ // för att alla par ska ha ett gemensamt ID...  
 		
 			for(j = 0; j < 2; j += 1){ // två kort i varje par
 				
-				card = {
-					coupleId : i, // Alla par har ett gemensamt Id
+				//card = {
+				//	coupleId : i, // Alla par har ett gemensamt Id
 					
-					cardId : j, // Alla kort har sina egna Idn..
+				//	cardId : j, // Alla kort har sina egna Idn..
 					
-					status : 0, //korten är nedvända som standard
+				//	status : 0, //korten är nedvända som standard
 					
-					img : "pics/"+i+".png" // Alla kort måste hitta rätt sökväg till sin bild
+				//	img : "pics/"+i+".png" // Alla kort måste hitta rätt sökväg till sin bild
 					
-				}
+				//}
+				card = document.createElement("a");
+				
+				card.setAttribute("coupleId", i);
+				card.setAttribute("CardId", j);
+				card.setAttribute("status", 0);
+				
+				img = document.createElement("img");
+				img.setAttribute("src", "pics/"+i+".png");
+				
+				card.appendChild(img);
+				
 				
 				memory.cardArray.push(card);
 				
@@ -57,11 +69,24 @@ var memory = {
 		}
 	},
 	
-	placeCards : function(){
-		var i; 
-		for(i = 0; i < 4; i += 1){
+	placeCards : function(rows, cols){
+		var i, j, aTag, thisBrick, x; 
+		x = 0;
+		for(i = 0; i < rows; i += 1){
 			
-			
+			for(j = 0; j < cols; j += 1){
+				
+				aTag = document.createElement("a");
+				
+				thisBrick = memory.cardArray[memory.randomArr[x]];// tar fram det kort i cardArray som har samma värde som värdet av randomArr[x] har..
+				
+				aTag.appendChild(thisBrick);
+				
+				document.getElementById("box").appendChild(aTag);
+				
+				x += 1;
+				
+			}			
 			
 		}
 		
