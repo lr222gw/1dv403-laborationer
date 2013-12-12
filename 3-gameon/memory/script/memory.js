@@ -78,8 +78,10 @@ var memory = {
 	},
 	
 	placeCards : function(rows, cols){
-		var i, j, aTag, thisBrick, x, row; 
+		var i, j, k, aTag, thisBrick, x, row, questionmark, statusCheckList, statusCheckListSummary; 
 		x = 0;
+		statusCheckListSummary = 0;
+		statusCheckList = [];
 		for(i = 0; i < rows; i += 1){
 			
 			row = document.createElement("div"); // används för att dela upp allt i rader..
@@ -95,10 +97,42 @@ var memory = {
 				
 				thisBrick.onclick = function(e){
 					//e.target.remove();
+					var resetter = function(){
+						
+						for(k = 0; k < aTag.length; k +=1){// for loop för att kolla om aTag har mer än 2 st status som har värdet 1.
+						
+							document.getElementById("box").setAttribute;
+						
+						}
+						
+					};
 					
-					
+					questionmark = e.target.getAttribute("src"); //sparar ner vägen till "?"-tecknet..
 					
 					e.target.setAttribute("src", e.target.firstChild.getAttribute("src"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
+					
+					if(e.target.getAttribute("src") ===  e.target.firstChild.getAttribute("src")){ // om  sökvägen är samma i källan som visas.
+						
+						e.target.parentNode.setAttribute("status", 1); // sätt status till 1
+					}
+					
+					aTag = document.getElementById("box").getElementsByTagName("a");
+					for(k = 0; k < aTag.length; k +=1){// for loop för att kolla om aTag har mer än 2 st status som har värdet 1.
+						
+						statusCheckList.push(parseInt(aTag[k].getAttribute("status"))); // tar ner alla status och parsar om från string till int..
+						
+						statusCheckListSummary += statusCheckList[k]; //  kollar det totala värdet av arrayen. Om det är över 2 då är 2 kort uppe...
+						
+					}
+					
+					if(statusCheckListSummary >= 2 ){ // om 2 kort är uppe...
+						
+						setTimeout(resetter(), 1000); // efter en sekund så rensas fönstret..
+						
+					}
+					
+					
+					
 					
 				};
 				
