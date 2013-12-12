@@ -6,20 +6,21 @@ var memory = {
 	startFunction : function(){
 		
 		
-		memory.MemoryObj(3);
+		memory.MemoryObj(8); // Antal par
 		memory.randomPlacement();
-		memory.placeCards(4, 4);
+		memory.placeCards(4, 4); // här kan man ändra raderna..
 		
 		
 		
 	},
 	
 	MemoryObj : function(cardCoupleAmount){
-		var i, j, coupleId, card, img;
+		var i, j, coupleId, card, img, realImg;
 		for(i = 0; i < cardCoupleAmount; i += 1){ // för att alla par ska ha ett gemensamt ID...  
 		
 			for(j = 0; j < 2; j += 1){ // två kort i varje par
 				
+				// ↓ Tog bort denna kod för att den var bättre att skapa ett HTML objekt som jag senare (i funktionen randomPlacement) kunde skjuta in i webben..
 				//card = {
 				//	coupleId : i, // Alla par har ett gemensamt Id
 					
@@ -35,10 +36,16 @@ var memory = {
 				card.setAttribute("coupleId", i);
 				card.setAttribute("CardId", j);
 				card.setAttribute("status", 0);
-				card.setAttribute("href", "#");
+				card.setAttribute("href", "#");							
 				
 				img = document.createElement("img");
-				img.setAttribute("src", "pics/"+i+".png");
+				img.setAttribute("src", "pics/fast/ask.png");
+				
+				realImg = document.createElement("div");
+				realImg.setAttribute("src", "pics/"+i+".png");
+				img.appendChild(realImg);
+				
+				
 				
 				card.appendChild(img);
 				
@@ -71,21 +78,32 @@ var memory = {
 	},
 	
 	placeCards : function(rows, cols){
-		var i, j, aTag, thisBrick, x; 
+		var i, j, aTag, thisBrick, x, row; 
 		x = 0;
 		for(i = 0; i < rows; i += 1){
 			
+			row = document.createElement("div"); // används för att dela upp allt i rader..
+			//^gör en ny rad varje gång denna loopas.. använder samma rad tills j blir lika mkt som cols ↓ 
 			for(j = 0; j < cols; j += 1){
 				
 				
 				
 				thisBrick = memory.cardArray[memory.randomArr[x]];// tar fram det kort i cardArray som har samma värde som värdet av randomArr[x] har..
+
+				document.getElementById("box").appendChild(row).appendChild(thisBrick);
 				
 				
+				thisBrick.onclick = function(e){
+					//e.target.remove();
+					
+					
+					
+					e.target.setAttribute("src", e.target.firstChild.getAttribute("src"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
+					
+				};
 				
-				document.getElementById("box").appendChild(thisBrick);
 				
-				x += 1;
+				x += 1; // denna nollställs bara efter funktionen har körts.. den är lämplig att använda för att J skulle bara nollställas och "förstöra" allt...
 				
 			}			
 			
