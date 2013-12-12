@@ -2,7 +2,7 @@
 var memory = {
 	
 	cardArray : [],
-	
+	randomArr : [], 
 	startFunction : function(){
 		
 		
@@ -40,22 +40,33 @@ var memory = {
 	},
 	
 	randomPlacement : function(){
-		var i, randomPlacementNumber, randomArr;
-		randomArr = []; // berättar att randomArr är en array..
+		var i, randomPlacementNumber;
+		
 		for(i = 0; i < memory.cardArray.length; i += 1){
 			
 			randomPlacementNumber = Math.floor(Math.random()* memory.cardArray.length); // tar fram en slumpad siffra för att bestämma ordningen på vilken bricka som ska läggas in först..
 			
-			if(randomArr !== undefined && randomArr.indexOf(randomPlacementNumber) !== -1){ // Finns randomPlacementNumber redan i arrayen? om randomArr är undefined så finns inget i den, då kan den hoppa över satsen..
-				while(randomArr.indexOf(randomPlacementNumber) !== -1){ // Om den gör det, loopa fram ett nytt som inte finns i arrayen
-					randomPlacementNumber = Math.floor(Math.random()* memory.cardArray.length);
+			if(memory.randomArr !== undefined && memory.randomArr.indexOf(randomPlacementNumber) !== -1){ // Finns randomPlacementNumber redan i arrayen? om randomArr är undefined så finns inget i den, då kan den hoppa över satsen..
+				while(memory.randomArr.indexOf(randomPlacementNumber) !== -1){ // Om den gör det, loopa fram ett nytt som inte finns i arrayen
+					randomPlacementNumber = Math.floor(Math.random()* memory.cardArray.length); 
 				}
 			}
 			
-			randomArr.push(randomPlacementNumber); // När ett nytt nummer kommit fram så kastas den in i denna array! (arrayens syfte = håll koll så att samma nummer ej skrivs in flera ggr...)
+			memory.randomArr.push(randomPlacementNumber); // När ett nytt nummer kommit fram så kastas den in i denna array! (arrayens syfte = håll koll så att samma nummer ej skrivs in flera ggr...)
 			
 		}
-	} 
+	},
+	
+	placeCards : function(){
+		var i; 
+		for(i = 0; i < 4; i += 1){
+			
+			
+			
+		}
+		
+		
+	}
 	
 	
 	
