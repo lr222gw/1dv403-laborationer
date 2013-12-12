@@ -101,7 +101,8 @@ var memory = {
 						
 						for(k = 0; k < aTag.length; k +=1){// for loop för att kolla om aTag har mer än 2 st status som har värdet 1.
 						
-							document.getElementById("box").setAttribute;
+							document.getElementById("box").getElementsByTagName("a")[k].firstChild.setAttribute("src", questionmark);
+							
 						
 						}
 						
@@ -127,7 +128,7 @@ var memory = {
 					
 					if(statusCheckListSummary >= 2 ){ // om 2 kort är uppe...
 						
-						setTimeout(resetter(), 1000); // efter en sekund så rensas fönstret..
+						setTimeout(resetter, 1000); // efter en sekund så rensas fönstret..
 						
 					}
 					
