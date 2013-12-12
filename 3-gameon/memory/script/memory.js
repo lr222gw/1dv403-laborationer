@@ -144,12 +144,20 @@ var memory = {
 					
 					if(statusCheckListSummary >= 2 ){ // om 2 kort är uppe...
 						
-						setTimeout(resetter, 1000); // efter en sekund så rensas fönstret..
+						if(memory.chosenBricks[0].parentNode.getAttribute("coupleid") === memory.chosenBricks[1].parentNode.getAttribute("coupleid")){
+							memory.chosenBricks = [];
+							
+							statusCheckListSummary = 0;
+							
+						}else{
+							setTimeout(resetter, 1000); // efter en sekund så rensas fönstret..
+
+						}
+						
+						
 						
 					}
 
-					
-					
 					
 				};
 				
