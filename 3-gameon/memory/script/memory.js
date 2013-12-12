@@ -4,7 +4,10 @@ var memory = {
 	cardArray : [],
 	randomArr : [], 
 	chosenBricks : [],
+	attempts : 0, 
 	startFunction : function(){
+		
+		
 		
 		
 		memory.MemoryObj(8); // Antal par
@@ -79,10 +82,11 @@ var memory = {
 	},
 	
 	placeCards : function(rows, cols){
-		var i, j, k, aTag, thisBrick, x, row, questionmark, statusCheckList, statusCheckListSummary, setAttribute; 
+		var i, j, k, l, aTag, thisBrick, x, row, questionmark, statusCheckList, statusCheckListSummary, setAttribute, winChecker, winCheckerArr; 
 		x = 0;
 		statusCheckListSummary = 0;
 		statusCheckList = [];
+		winCheckerArr = [];
 		for(i = 0; i < rows; i += 1){
 			
 			row = document.createElement("div"); // används för att dela upp allt i rader..
@@ -144,14 +148,22 @@ var memory = {
 					
 					if(statusCheckListSummary >= 2 ){ // om 2 kort är uppe...
 						
-						if(memory.chosenBricks[0].parentNode.getAttribute("coupleid") === memory.chosenBricks[1].parentNode.getAttribute("coupleid")){
-							memory.chosenBricks = [];
+						if(memory.chosenBricks[0].parentNode.getAttribute("coupleid") === memory.chosenBricks[1].parentNode.getAttribute("coupleid")){ 
+							memory.chosenBricks = []; // rensar så att det är fritt fram för nästa par..
+							statusCheckListSummary = 0; 
 							
-							statusCheckListSummary = 0;
+							winCheckerArr = []; // tommer.. 
+							winChecker = document.getElementsByTagName("a");
+							for(l = 0; l < winChecker.length; l +=1){
+								winCheckerArr.push(parseInt(winChecker[l].getAttribute("status"))); // gör om listan till en array så att jag kan köra indexOf på den. parsar om från string till number.. 
+							}
+							if(winCheckerArr.indexOf(0) === -1){ // kontrollerar om alla kort är uppvända! 
+								alert("DU klarade spelet! Du klarade det på "+memory.attempts+" Försök!");
+							}
 							
 						}else{
-							setTimeout(resetter, 1000); // efter en sekund så rensas fönstret..
-
+							setTimeout(resetter, 500); // efter en sekund så rensas fönstret..
+							memory.attempts += 1;
 						}
 						
 						
