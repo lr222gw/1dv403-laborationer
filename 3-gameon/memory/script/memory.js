@@ -3,6 +3,7 @@ var memory = {
 	
 	cardArray : [],
 	randomArr : [], 
+	chosenBricks : [],
 	startFunction : function(){
 		
 		
@@ -78,7 +79,7 @@ var memory = {
 	},
 	
 	placeCards : function(rows, cols){
-		var i, j, k, aTag, thisBrick, x, row, questionmark, statusCheckList, statusCheckListSummary; 
+		var i, j, k, aTag, thisBrick, x, row, questionmark, statusCheckList, statusCheckListSummary, setAttribute; 
 		x = 0;
 		statusCheckListSummary = 0;
 		statusCheckList = [];
@@ -99,16 +100,31 @@ var memory = {
 					//e.target.remove();
 					var resetter = function(){
 						
-						for(k = 0; k < aTag.length; k +=1){// for loop för att kolla om aTag har mer än 2 st status som har värdet 1.
+						for(k = 0; k < 2; k +=1){// for loop för att kolla om aTag har mer än 2 st status som har värdet 1.
 						
-							document.getElementById("box").getElementsByTagName("a")[k].firstChild.setAttribute("src", questionmark);
+							// ↓ dålig lösning då detta resettar ALLA brickor..
+							//document.getElementById("box").getElementsByTagName("a")[k].firstChild.setAttribute("src", questionmark);
 							
-						
+							
+							memory.chosenBricks[k].setAttribute("src", questionmark); // tar bort de brickorna som man valt, specifikt!
+							
 						}
+						
+						for(k = 0; k < 2; k +=1){ // Denna kod utförs när resetter functionen anropas. den skulle utföras i
+
+							memory.chosenBricks[k].parentNode.setAttribute("status", 0); // sätter "status" till 0
+
+						}
+						
+						//memory.chosenBricks[k].parentNode.setAttribute("status", 0); 
+						memory.chosenBricks = []; // rensar arrayen för nytt bruk..
+						statusCheckListSummary = 0; // måste sättas till noll annats fortsätter metoden att anropa resetter och då blir det knas!					
 						
 					};
 					
 					questionmark = e.target.getAttribute("src"); //sparar ner vägen till "?"-tecknet..
+					
+					memory.chosenBricks.push(e.target);//  lägga de två valda brickorna i en array som rensas varje gång brickorna tas bort..
 					
 					e.target.setAttribute("src", e.target.firstChild.getAttribute("src"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
 					
@@ -131,7 +147,7 @@ var memory = {
 						setTimeout(resetter, 1000); // efter en sekund så rensas fönstret..
 						
 					}
-					
+
 					
 					
 					
