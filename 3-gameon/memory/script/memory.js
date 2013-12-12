@@ -35,6 +35,7 @@ var memory = {
 				card.setAttribute("coupleId", i);
 				card.setAttribute("CardId", j);
 				card.setAttribute("status", 0);
+				card.setAttribute("href", "#");
 				
 				img = document.createElement("img");
 				img.setAttribute("src", "pics/"+i+".png");
@@ -76,13 +77,13 @@ var memory = {
 			
 			for(j = 0; j < cols; j += 1){
 				
-				aTag = document.createElement("a");
+				
 				
 				thisBrick = memory.cardArray[memory.randomArr[x]];// tar fram det kort i cardArray som har samma värde som värdet av randomArr[x] har..
 				
-				aTag.appendChild(thisBrick);
 				
-				document.getElementById("box").appendChild(aTag);
+				
+				document.getElementById("box").appendChild(thisBrick);
 				
 				x += 1;
 				
