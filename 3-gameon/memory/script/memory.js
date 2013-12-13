@@ -193,7 +193,7 @@ var memory = {
 			memory.statusCheckListSummary += statusCheckList[k]; //  kollar det totala värdet av arrayen. Om det är över 2 då är 2 kort uppe...
 			
 		}
-		alert("gör en commit.. detta e test");
+		
 	}
 	
 	
