@@ -98,27 +98,38 @@ var memory = {
 
 				document.getElementById("box").appendChild(row).appendChild(thisBrick);
 				
+				thisBrick.onKeyPress = function(){
+					thisBrick.click();
+					
+				};
 				
 				thisBrick.onclick = function(e){
 					//e.target.remove();
+					var target = e.target;
 					
-					if(memory.chosenBricks.length >= 2 || e.target === memory.chosenBricks[0] ){//
+					
+					if(e.toElement.nodeName === "A"){ // när man trycker på en bild med tangentbordet så trycker man på A-taggen istället för IMG-taggen. 
+						target = e.target.firstChild;//  Detta blir problem då jag anpassat koden efter IMG-taggen. Så om e.toElement.nodeName är A så ska vi göra om den till IMG-taggen, vilket råkar vara 
+													//   firstChild (enda child) till A-taggen!   
+					}
+					
+					if(memory.chosenBricks.length >= 2 || target === memory.chosenBricks[0] ){//
 						return;
 					}
-					questionmark = e.target.getAttribute("src"); //sparar ner vägen till "?"-tecknet..
+					questionmark = target.getAttribute("src"); //sparar ner vägen till "?"-tecknet..
 					
-					memory.chosenBricks.push(e.target);//  lägga de två valda brickorna i en array som rensas varje gång brickorna tas bort..
+					memory.chosenBricks.push(target);//  lägga de två valda brickorna i en array som rensas varje gång brickorna tas bort..
 					
-					e.target.setAttribute("src", e.target.parentNode.getAttribute("coupleId"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
+					target.setAttribute("src", target.parentNode.getAttribute("coupleId"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
 					
-					if(e.target.getAttribute("src") ===  e.target.parentNode.getAttribute("coupleId")){ // om  sökvägen är samma i källan som visas.
+					if(target.getAttribute("src") ===  target.parentNode.getAttribute("coupleId")){ // om  sökvägen är samma i källan som visas.
 						
-						e.target.parentNode.setAttribute("status", 1); // sätt status till 1
+						target.parentNode.setAttribute("status", 1); // sätt status till 1
 					}
 					
 					memory.getStatusCheckListSummary(); // anropar metoden som tar fram statusCheckList, alltså hur många kort som är uppvända
 					
-					memory.statusChecker(questionmark);
+					memory.statusChecker(questionmark); // Anropar metod som tar reda på om spelaren vunnit, fått ett par
 					
 				};
 
