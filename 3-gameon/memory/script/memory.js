@@ -11,8 +11,8 @@ var memory = {
 		
 		
 		memory.MemoryObj(8); // Antal par
-		memory.randomPlacement();
-		memory.placeCards(4, 4); // här kan man ändra raderna..
+		memory.randomPlacement(); // bygger upp en array för att hitta platserna åt alla kort..
+		memory.placeCards(4, 4); // här kan man ändra raderna..-++
 		
 		
 		
@@ -37,7 +37,7 @@ var memory = {
 				//}
 				card = document.createElement("a");
 				
-				card.setAttribute("coupleId", i);
+				card.setAttribute("coupleId", "pics/"+i+".png");
 				card.setAttribute("CardId", j);
 				card.setAttribute("status", 0);
 				card.setAttribute("href", "#");							
@@ -45,9 +45,9 @@ var memory = {
 				img = document.createElement("img");
 				img.setAttribute("src", "pics/fast/ask.png");
 				
-				realImg = document.createElement("div");
-				realImg.setAttribute("src", "pics/"+i+".png");
-				img.appendChild(realImg);
+				//realImg = document.createElement("div");
+				//realImg.setAttribute("src", "pics/"+i+".png");
+				//img.appendChild(realImg);
 				
 				
 				
@@ -122,17 +122,19 @@ var memory = {
 						
 						//memory.chosenBricks[k].parentNode.setAttribute("status", 0); 
 						memory.chosenBricks = []; // rensar arrayen för nytt bruk..
-						statusCheckListSummary = 0; // måste sättas till noll annats fortsätter metoden att anropa resetter och då blir det knas!					
+						statusCheckListSummary = 0; // måste sättas till noll annars fortsätter metoden att anropa resetter och då blir det knas!					
 						
 					};
-					
+					if(statusCheckListSummary >= 2){
+						return;
+					}
 					questionmark = e.target.getAttribute("src"); //sparar ner vägen till "?"-tecknet..
 					
 					memory.chosenBricks.push(e.target);//  lägga de två valda brickorna i en array som rensas varje gång brickorna tas bort..
 					
-					e.target.setAttribute("src", e.target.firstChild.getAttribute("src"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
+					e.target.setAttribute("src", e.target.parentNode.getAttribute("coupleId"));//sätter attributet för sökvägen (src) till sökvägen som leder till bilden som hör till kortet.. 
 					
-					if(e.target.getAttribute("src") ===  e.target.firstChild.getAttribute("src")){ // om  sökvägen är samma i källan som visas.
+					if(e.target.getAttribute("src") ===  e.target.parentNode.getAttribute("coupleId")){ // om  sökvägen är samma i källan som visas.
 						
 						e.target.parentNode.setAttribute("status", 1); // sätt status till 1
 					}
@@ -162,7 +164,7 @@ var memory = {
 							}
 							
 						}else{
-							setTimeout(resetter, 500); // efter en sekund så rensas fönstret..
+							setTimeout(resetter, 1000); // efter en sekund så rensas fönstret..
 							memory.attempts += 1;
 						}
 						
