@@ -102,7 +102,7 @@ var memory = {
 				thisBrick.onclick = function(e){
 					//e.target.remove();
 					
-					if(memory.statusCheckListSummary >= 2 || e.target === memory.chosenBricks[0]){
+					if(memory.chosenBricks.length >= 2 || e.target === memory.chosenBricks[0] ){//
 						return;
 					}
 					questionmark = e.target.getAttribute("src"); //sparar ner vägen till "?"-tecknet..
@@ -158,7 +158,7 @@ var memory = {
 	
 	statusChecker : function(questionmark){
 		var winCheckerArr, winChecker, l;
-		if(memory.statusCheckListSummary >= 2 ){ // om 2 kort är uppe...
+		if(memory.chosenBricks.length === 2 ){ // om 2 kort är uppe...
 						
 			if(memory.chosenBricks[0].parentNode.getAttribute("coupleid") === memory.chosenBricks[1].parentNode.getAttribute("coupleid")){ 
 				memory.chosenBricks = []; // rensar så att det är fritt fram för nästa par..
