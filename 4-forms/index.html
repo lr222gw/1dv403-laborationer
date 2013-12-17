@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sv">
+	<head>
+		<link rel="stylesheet" href="css/style.css">
+		<meta charset="UTF-8"/>
+		<title>dont know yet.</title>
+	</head>
+	<body>
+		<form id="minForm" method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php">
+			<fieldset>
+				<legend>Validerings Test</legend>
+					<label for="nameId">Förnamn</label>
+					<input name="name" id="nameId">
+					<label for="lastNameId">Efternamn</label>
+					<input name="lastName" id="lastNameId">
+					<label for="PostnummerId">Postnummer</label>
+					<input name="Postnummer" id="PostnummerId">
+					<label for="mailId">E-Post</label>
+					<input name="mail" id="mailId">
+					<label for="PrismodellId">Prismodell</label>
+					<select name="Prismodell" id="PrismodellId">
+						<option value="low">Låg</option>
+						<option value="middle">Mellan</option>
+						<option value="high">Hög</option>
+					</select>			
+			</fieldset>
+			<input id="SkickaKnapp" type="submit" value="Skicka!"> <!--En knapp för att skicka.. -->
+		</form>
+	</body>
+</html>
