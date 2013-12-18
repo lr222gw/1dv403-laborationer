@@ -28,7 +28,7 @@ var validator = {
 					case "PostnummerId":
 					
 					break;
-					default:
+					default: // Genom att skicka till deafault händer inget, den enda kontrolleringen som görs då är om input fältet är tomt eller inte.
 					
 					break;
 				}
@@ -59,6 +59,10 @@ var validator = {
 		if(result === null){ // om emailen är ogiltig så skrivs ett meddelande ut.
 		return "Epostadressen är ogiltig!";
 		}
+		
+	},
+	
+	checkPostNmr : function(){
 		
 	},
 	
