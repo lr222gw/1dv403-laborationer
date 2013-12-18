@@ -2,7 +2,7 @@
 var validator = {
 	
 	check : function(){
-		var emme, i, targetId, targetContent, answer, errorMess;
+		var emme, i, targetId, targetContent, answer, errorMess, errorId;
 		emme = [];
 		emme = document.getElementsByTagName("input"); // Hämtar ner alla Inputs till en lista
 		
@@ -10,6 +10,8 @@ var validator = {
 		for( i = 0; i < emme.length ; i += 1){ // Genom att sätta min  funktion i en loop så hittar jag snabbt vilken "input" jag tryckt på.
 			
 			emme[i].onblur = function(e){								
+				
+				answer = undefined; // Nollställer Answer för varje gång man "blurar" en ny inputbox..
 				
 				targetContent = e.target.value;
 				
@@ -30,17 +32,32 @@ var validator = {
 					break;
 				}
 				
-				if(answer !== undefined){ //om något returneras tillbaka så är det ett felmeddelande, då ska det skrivas ut..
-				alert(answer);	
-				
-				//errorMess = document.createElement("p");
-				//errorMess.textContent = answer;
-				
-				//e.target.appendChild(errorMess);
+				if(answer !== undefined){ //om något returneras tillbaka så är det ett felmeddelande, då ska det skrivas ut..						
 				
 				validator.insertAfter(e, answer);  // Funktion som lägger till felmeddelande efter ruta..
 				
-				} // Ide! Alla fält har redan en liten "osynlig" ruta brevid dem där error text hamnar. om det inte är några error så rensas rutan!
+				}else{ // Sats som skriver ut att du har en tom ruta. och att du måste fylla i innehållet.
+					if(targetContent === ""){ // Är rutan tom ska detta skrivas ut..
+						validator.insertAfter(e, "Du måste skriva något i rutan.");
+					}else{// Är det något i rutan ska felmeddelandet tas bort! OM det finns ett felmeddelande
+						
+						errorId = /ErrorBox$/; //Gör ett regExp för att se om ID slutar på "ErrorBox"
+						
+						try{ // Om Denna sats inte lyckas = finns inget felmeddelande
+							if(e.target.nextSibling.id.match(errorId)) {//Kontrollera att e.target.nextSibling är ett felmeddelande!
+								
+								e.target.nextSibling.remove(); 
+							}
+						}catch(iDontKnow){
+							// Gör inget om det inte finns ett meddelande så finns det heller inget att ta bort...
+						}
+							
+						
+						
+					}
+					
+					
+				}
 				
 				
 				e.target.blur(); // tar bort fokus från fältet som är fel.
@@ -79,14 +96,34 @@ var validator = {
 		
 		myHolder.innerHTML = answer; // Lägger in Content i P-taggen
 		
+		if(myTarget.nextSibling.nodeName === "P"){ // if-sats som kollar om inputrutan redan visar ett felmeddelande.. 
+
+			myTarget.nextSibling.remove();
+			// ↑Tar bort meddelandet och låter det skrivas ut på nytt, på så sätt så blir det alltid rätt meddelanden som skrivs ut!
+		}
+			
+		myTarget.parentNode.insertBefore(myHolder, myTarget.nextSibling); // Skriver ut Error meddelandet på nytt! 
+		//Lägger till kod som gör att Error meddelandet blinkar till 
+		validator.colorTimeOutOneSec(myTarget); //ser till att texten blinkar till..	
+			
 		
 		
 		
-		myTarget.parentNode.insertBefore(myHolder, myTarget); // Skriver ut Error meddelandet! 
+		
+	},
+	colorTimeOutOneSec : function(myTarget){ // Funktion som gör att felmeddelande blinkar rött om man ej åtgärdat det!
+		
+				myTarget.nextSibling.style.color = "red";	
+			setTimeout(function(){
+				
+				myTarget.nextSibling.style.color = "black";
+				
+			}, 1000);
+		
 	}
 	
 	
-}
+};
 
 window.onload = validator.check;
 
@@ -112,7 +149,7 @@ email@example.co.jp
 firstname-lastname@example.com
 f@gmail.se
 
-FUNGERAR INTE: (undantag = * )
+FUNGERAR INTE: (undantag = * ) (ändra på regex för att fixa dessa..)
 me@				*
 @example.com	*
 me.@example.com
