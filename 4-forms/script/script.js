@@ -64,10 +64,14 @@ var validator = {
 	
 	checkPostNmr : function(targetContent){
 		var regExArr, regExNmr1, regExNmr2, regExNmr3, regExNmr4, regExNmr5, regExNmr6, regExNmr7, regExNmr8, regExNmr9, result, i;
+		result = "null";
+		if(targetContent === ""){ // Om targetContent är "" så ska ett meddelande lämnas att fältet är tomt..
+			return;
+		}
 		
 		//Listar upp alla olika typer av format som kan tas emot med regulära uttryck.
 		regExArr = [
-		regExNmr1 = /^[0-9]{5}/,			// matchar 11111
+		regExNmr1 = /^[0-9]{5}$/,			// matchar 11111
 		regExNmr2 = /[0-9]{3}-[0-9]{2}/,	// matchar 111-11
 		regExNmr3 = /[0-9]{3} [0-9]{2}/,	// Matchar 111 11
 		regExNmr4 = /SE[0-9]{5}/,			// Matchar SE11111
@@ -83,10 +87,60 @@ var validator = {
 			result = targetContent.match(regExArr[i]);
 			if(result !== null){ // Om result ej är Null så har result fått en match, då ska loopen avbrytas och result ska bearbetas..
 				
-				break;
+				switch(i){
 					
+					case 0:
+					return; //Allt är som det ska, returnar och kör vidare..
+					break;
+					
+					case 1:
+					result = result[0].replace("-", "");// rättar till så vi frå formatet vi önskar, sparar ner i result										
+					break;
+					
+					case 2:
+					result = result[0].replace(" ", "");					
+					break;
+					
+					case 3:
+					result = result[0].replace("-", "");					
+					break;
+					
+					case 4:
+					result = result[0].replace("-", "");					
+					break;
+					
+					case 5:
+					result = result[0].replace("-", "");					
+					break;
+					
+					case 6:
+					result = result[0].replace("-", "");					
+					break;
+					
+					case 7:
+					result = result[0].replace("-", "");					
+					break;
+					
+					case 8:
+					result = result[0].replace("-", "");					
+					break;									
+					
+				}
+				validator.setResult(result);//skickar till en funktion som ändrar värdet på slutanvändarens skärm till result...	
+				
+				break; // bryter här så att man inte får ett meddelande..
+
 			}
+			
 		}
+		if(result === null){ // om Postnummret är ogiltig så skrivs ett meddelande ut. Det skrivs alltså ut om det inte finns någon match i Switch-satsen/forLoopen..
+			return "Postnummret är ogiltigt!";
+		}
+	},
+	
+	setResult : function(result){
+		
+		document.getElementById("PostnummerId").value = result;
 		
 	},
 	
