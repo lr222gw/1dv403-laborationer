@@ -33,12 +33,12 @@ var validator = {
 				if(answer !== undefined){ //om något returneras tillbaka så är det ett felmeddelande, då ska det skrivas ut..
 				alert(answer);	
 				
-				errorMess = document.createElement("p");
-				errorMess.textContent = answer;
+				//errorMess = document.createElement("p");
+				//errorMess.textContent = answer;
 				
-				e.target.appendChild(errorMess);
+				//e.target.appendChild(errorMess);
 				
-				
+				validator.insertAfter(e, answer);  // Funktion som lägger till felmeddelande efter ruta..
 				
 				} // Ide! Alla fält har redan en liten "osynlig" ruta brevid dem där error text hamnar. om det inte är några error så rensas rutan!
 				
@@ -66,8 +66,24 @@ var validator = {
 		return "Epostadressen är ogiltig!";
 		}
 		
-	}
+	},
 	
+	insertAfter : function(e, answer){
+		var myTarget, myHolder, ErrorMessageId;
+		myTarget = e.target;
+		ErrorMessageId = myTarget.id + "ErrorBox"; //Skapar ett unikt Id för varje ErrorRuta!
+		
+		myHolder = document.createElement("p"); // skapar en ptagg som ska visa felmeddelanden
+		
+		myHolder.setAttribute("id", ErrorMessageId);
+		
+		myHolder.innerHTML = answer; // Lägger in Content i P-taggen
+		
+		
+		
+		
+		myTarget.parentNode.insertBefore(myHolder, myTarget); // Skriver ut Error meddelandet! 
+	}
 	
 	
 }
