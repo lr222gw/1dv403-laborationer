@@ -26,7 +26,7 @@ var validator = {
 					break;
 					
 					case "PostnummerId":
-					
+					answer = validator.checkPostNmr(targetContent);
 					break;
 					default: // Genom att skicka till deafault händer inget, den enda kontrolleringen som görs då är om input fältet är tomt eller inte.
 					
@@ -62,7 +62,31 @@ var validator = {
 		
 	},
 	
-	checkPostNmr : function(){
+	checkPostNmr : function(targetContent){
+		var regExArr, regExNmr1, regExNmr2, regExNmr3, regExNmr4, regExNmr5, regExNmr6, regExNmr7, regExNmr8, regExNmr9, result, i;
+		
+		//Listar upp alla olika typer av format som kan tas emot med regulära uttryck.
+		regExArr = [
+		regExNmr1 = /^[0-9]{5}/,			// matchar 11111
+		regExNmr2 = /[0-9]{3}-[0-9]{2}/,	// matchar 111-11
+		regExNmr3 = /[0-9]{3} [0-9]{2}/,	// Matchar 111 11
+		regExNmr4 = /SE[0-9]{5}/,			// Matchar SE11111
+		regExNmr5 = /SE[0-9]{3}-[0-9]{2}/,	// Matchar SE111-11
+		regExNmr6 = /SE[0-9]{3} [0-9]{2}/,	// Matchar SE111 11
+		regExNmr7 = /SE [0-9]{3}[0-9]{2}/,	// Matchar SE 111-11
+		regExNmr8 = /SE [0-9]{3}-[0-9]{2}/, // Matchar SE 111-11
+		regExNmr9 = /SE [0-9]{3} [0-9]{2}/ // Matchar SE 111 11
+		];
+		
+		for(i = 0; i < regExArr.length; i+=1){
+			
+			result = targetContent.match(regExArr[i]);
+			if(result !== null){ // Om result ej är Null så har result fått en match, då ska loopen avbrytas och result ska bearbetas..
+				
+				break;
+					
+			}
+		}
 		
 	},
 	
