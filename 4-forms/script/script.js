@@ -126,13 +126,13 @@ var validator = {
 	},
 	
 	readyToSend : function(errorId){
-		var checkArr, i, result, temp;
+		var checkArr, i, result, temp, isFilled;
 		result = [];
-		
+		isFilled = true;
 		
 		checkArr = document.getElementById("minForm").children[0].children;  // hämtar ner en array med alla input boxar..
 		
-		for(i=0; i<checkArr.length; i+=1){
+		for(i=0; i<checkArr.length; i+=1){ // For loop som tar reda på om det finns error meddelanden..
 			
 			temp = checkArr[i].id.match(errorId); // Kollar om Det finns Idn i CheckArr som slutar på "ErrorBox" och lägger in dem i en ny array.
 			
@@ -141,8 +141,20 @@ var validator = {
 			}
 		}
 		
+		for(i=0; i<checkArr.length; i+=1){ //Forloop som tar reda på om det finns rutor utan content....
+			
+			if(checkArr[i].nodeName === "INPUT"){ // Om den del i checkArr är en input ruta så fortsätt till nästa if-sats
+				
+				if (checkArr[i].value === ""){ // om en inputrutan är tom sätt "isFilled" till false
+					isFilled = false;
+					break;
+				} 
+			}
+			
+		}
 		
-		if(result.length === 0 ){// Kollar om det finns error message och om allt är i fyllt kontrolleras  ..
+		
+		if(result.length === 0 && isFilled === true){// Kollar om det finns error message och om allt är i fyllt kontrolleras  ..
 			document.getElementById("SkickaKnapp").disabled = false;
 		}else{
 			document.getElementById("SkickaKnapp").disabled = true; // ändrar status från false till true om det skulle behövas.. tex om användaren ändrar från giltig till ogiltig information..
