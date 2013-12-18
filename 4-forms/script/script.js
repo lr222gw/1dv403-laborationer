@@ -2,7 +2,7 @@
 var validator = {
 	
 	check : function(){
-		var emme, i, targetId, targetContent;
+		var emme, i, targetId, targetContent, answer, errorMess;
 		emme = [];
 		emme = document.getElementsByTagName("input"); // Hämtar ner alla Inputs till en lista
 		
@@ -18,8 +18,8 @@ var validator = {
 				switch(targetId){ // Anger olika beskrivningar beroende på vilken input/ruta som har 
 					
 					case "mailId":
-					// target id contet ska skickas till checkamil där den checkas med regex
-					validator.checkMail(targetContent);
+					// target id contet ska skickas till checkamil där den checkas med regex och returnerar eventuella felmeddelanden
+					answer = validator.checkMail(targetContent);
 					break;
 					
 					case "PostnummerId":
@@ -29,6 +29,19 @@ var validator = {
 					
 					break;
 				}
+				
+				if(answer !== undefined){ //om något returneras tillbaka så är det ett felmeddelande, då ska det skrivas ut..
+				alert(answer);	
+				
+				errorMess = document.createElement("p");
+				errorMess.textContent = answer;
+				
+				e.target.appendChild(errorMess);
+				
+				
+				
+				} // Ide! Alla fält har redan en liten "osynlig" ruta brevid dem där error text hamnar. om det inte är några error så rensas rutan!
+				
 				
 				e.target.blur(); // tar bort fokus från fältet som är fel.
 				
@@ -48,6 +61,11 @@ var validator = {
 		regExMail = /[^\.].+[^\.^\\]+@(\S.+\.(?!\.).+(?!\.))+/gi; // använder "[^\.].+[^\.^\\]+@(\S.+\.(?!\.).+(?!\.))+" för att man kan skriva epostadresser på så många konstiga sätt. och den här klarar allt så länge du har något före och efter @ och sen en punkt och "com"/"se" etc..
 		
 		result = targetContent.match(regExMail); // om Null returneras så är epostadressen ogiltig
+		
+		if(result === null){ // om emailen är ogiltig så skrivs ett meddelande ut.
+		return "Epostadressen är ogiltig!";
+		}
+		
 	}
 	
 	
