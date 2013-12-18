@@ -77,7 +77,7 @@ var validator = {
 		regExNmr4 = /SE[0-9]{5}/,			// Matchar SE11111
 		regExNmr5 = /SE[0-9]{3}-[0-9]{2}/,	// Matchar SE111-11
 		regExNmr6 = /SE[0-9]{3} [0-9]{2}/,	// Matchar SE111 11
-		regExNmr7 = /SE [0-9]{3}[0-9]{2}/,	// Matchar SE 111-11
+		regExNmr7 = /^SE [0-9]{3}[0-9]{2}/,	// Matchar SE 11111
 		regExNmr8 = /SE [0-9]{3}-[0-9]{2}/, // Matchar SE 111-11
 		regExNmr9 = /SE [0-9]{3} [0-9]{2}/ // Matchar SE 111 11
 		];
@@ -102,27 +102,32 @@ var validator = {
 					break;
 					
 					case 3:
-					result = result[0].replace("-", "");					
+					result = result[0].replace("SE", "");					
 					break;
 					
 					case 4:
+					result = result[0].replace("SE", "");
 					result = result[0].replace("-", "");					
 					break;
 					
 					case 5:
-					result = result[0].replace("-", "");					
+					result = result[0].replace("SE", "");
+					result = result[0].replace(" ", "");					
 					break;
 					
 					case 6:
-					result = result[0].replace("-", "");					
+					result = result[0].replace("SE ", "");													
 					break;
 					
 					case 7:
+					result = result[0].replace("SE", "");
+					result = result[0].replace(" ", "");	
 					result = result[0].replace("-", "");					
 					break;
 					
 					case 8:
-					result = result[0].replace("-", "");					
+					result = result[0].replace("SE", "");
+					result = result[0].replace(" ", "");			
 					break;									
 					
 				}
