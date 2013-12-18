@@ -2,8 +2,9 @@
 var validator = {
 	
 	check : function(){
-		var emme, i, targetId, targetContent, answer, errorMess, errorId;
+		var emme, i, targetId, targetContent, answer, errorMess, errorId, checkArr;
 		emme = [];
+		errorId = /ErrorBox$/; //Gör ett regExp för att se om ID slutar på "ErrorBox"
 		emme = document.getElementsByTagName("input"); // Hämtar ner alla Inputs till en lista
 		
 		
@@ -32,38 +33,14 @@ var validator = {
 					break;
 				}
 				
-				if(answer !== undefined){ //om något returneras tillbaka så är det ett felmeddelande, då ska det skrivas ut..						
+				validator.ControlEverything(answer, e, targetContent, errorId); // Metod för att validera allt
 				
-				validator.insertAfter(e, answer);  // Funktion som lägger till felmeddelande efter ruta..
+				e.target.blur(); // tar bort fokus från fältet 
 				
-				}else{ // Sats som skriver ut att du har en tom ruta. och att du måste fylla i innehållet.
-					if(targetContent === ""){ // Är rutan tom ska detta skrivas ut..
-						validator.insertAfter(e, "Du måste skriva något i rutan.");
-					}else{// Är det något i rutan ska felmeddelandet tas bort! OM det finns ett felmeddelande
-						
-						errorId = /ErrorBox$/; //Gör ett regExp för att se om ID slutar på "ErrorBox"
-						
-						try{ // Om Denna sats inte lyckas = finns inget felmeddelande
-							if(e.target.nextSibling.id.match(errorId)) {//Kontrollera att e.target.nextSibling är ett felmeddelande!
-								
-								e.target.nextSibling.remove(); 
-							}
-						}catch(iDontKnow){
-							// Gör inget om det inte finns ett meddelande så finns det heller inget att ta bort...
-						}
-							
-						
-						
-					}
-					
-					
-				}
-				
-				
-				e.target.blur(); // tar bort fokus från fältet som är fel.
+				validator.readyToSend(errorId);
 				
 			};
-		}
+		}		
 		
 	},
 	
@@ -111,17 +88,66 @@ var validator = {
 		
 		
 	},
+	
 	colorTimeOutOneSec : function(myTarget){ // Funktion som gör att felmeddelande blinkar rött om man ej åtgärdat det!
 		
-				myTarget.nextSibling.style.color = "red";	
-			setTimeout(function(){
-				
-				myTarget.nextSibling.style.color = "black";
-				
-			}, 1000);
+		myTarget.nextSibling.style.color = "red";	
+		setTimeout(function(){
+			
+			myTarget.nextSibling.style.color = "black";
+			
+		}, 1000);
 		
-	}
+	},
 	
+	ControlEverything : function(answer, e, targetContent, errorId){
+			
+		if(answer !== undefined){ //om något returneras tillbaka så är det ett felmeddelande, då ska det skrivas ut..						
+			
+			validator.insertAfter(e, answer);  // Funktion som lägger till felmeddelande efter ruta..
+			
+		}else{ // Sats som skriver ut att du har en tom ruta. och att du måste fylla i innehållet.
+			if(targetContent === ""){ // Är rutan tom ska detta skrivas ut..
+				validator.insertAfter(e, "Du måste skriva något i rutan.");
+			}else{// Är det något i rutan ska felmeddelandet tas bort! OM det finns ett felmeddelande
+				
+				//flyttade upp ErrorId för att den används senare..
+				
+				try{ // Om Denna sats inte lyckas = finns inget felmeddelande
+					if(e.target.nextSibling.id.match(errorId)) {//Kontrollera att e.target.nextSibling är ett felmeddelande!
+						
+						e.target.nextSibling.remove(); 
+					}
+				}catch(iDontKnow){
+					// Gör inget om det inte finns ett meddelande så finns det heller inget att ta bort...
+				}
+			}
+		}
+	},
+	
+	readyToSend : function(errorId){
+		var checkArr, i, result, temp;
+		result = [];
+		
+		
+		checkArr = document.getElementById("minForm").children[0].children;  // hämtar ner en array med alla input boxar..
+		
+		for(i=0; i<checkArr.length; i+=1){
+			
+			temp = checkArr[i].id.match(errorId); // Kollar om Det finns Idn i CheckArr som slutar på "ErrorBox" och lägger in dem i en ny array.
+			
+			if(temp !== null){ // Om Temp inte är Null så finns det error meddealnden, vi registrera att det finns meddelanden genom att putta in dem i en array.
+				result.push(temp);
+			}
+		}
+		
+		
+		if(result.length === 0 ){// Kollar om det finns error message och om allt är i fyllt kontrolleras  ..
+			document.getElementById("SkickaKnapp").disabled = false;
+		}else{
+			document.getElementById("SkickaKnapp").disabled = true; // ändrar status från false till true om det skulle behövas.. tex om användaren ändrar från giltig till ogiltig information..
+		}
+	}
 	
 };
 
