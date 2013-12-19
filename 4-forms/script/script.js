@@ -1,6 +1,8 @@
 "use strict";
 var validator = {
 	
+	doWhat : 0,
+	
 	check : function(){
 		var emme, i, targetId, targetContent, answer, errorMess, errorId, checkArr;
 		emme = [];
@@ -43,10 +45,20 @@ var validator = {
 			};
 		}
 		
-		document.getElementById("SkickaKnapp").onclick = function(){ // när man trycker på skicka knappen
-			var popUpp, h1;
+		document.getElementById("SkickaKnapp").onclick = function(e){ // när man trycker på skicka knappen
+			var popUpp, h1, cancel, accept, doWhat;
+
+			e.preventDefault(); //return false; // För att formuläret inte ska skickas när man trycker på knappen..
 			
-			popUpp = document.getElementById("popupp");
+			
+			document.getElementById("transp").style.display = "block"; // gör så att blockeringen sätts igång.. (från att trycka etc..)
+			
+			
+			popUpp = document.createElement("div");
+			popUpp.setAttribute("id", "popupp");
+			
+			popUpp.insertBefore(popUpp, popUpp = document.getElementById("transp"));
+			
 			h1 = document.createElement("h1");
 			h1.innerHTML = "Bekräfta beställning";
 			popUpp.appendChild(h1);
@@ -57,9 +69,32 @@ var validator = {
 			validator.createPopuppContent("E-Post", document.getElementById("mailId").value, popUpp);
 			validator.createPopuppContent("Prismodell", document.getElementById("PrismodellId").value, popUpp);
 			
-			popUpp.style.display = "block";
+			popUpp.style.display = "block"; // gör så att popuppen syns.. 
 			
-			return false; // För att formuläret inte ska skickas när man trycker på knappen..
+			
+			//Skapar två knappar... ↓
+			cancel = document.createElement("input");
+			cancel.setAttribute("type", "submit");
+			cancel.setAttribute("Value", "cancel");
+			cancel.setAttribute("id", "cancelbutton");
+			popUpp.appendChild(cancel);
+			
+			accept = document.createElement("input");
+			accept.setAttribute("type", "submit");
+			accept.setAttribute("Value", "accept");
+			accept.setAttribute("id", "acceptbutton");
+			popUpp.appendChild(accept);
+			
+			accept.onclick = function(){				
+				document.getElementById("minForm").submit(); // om man tryccker på Accept så submittas formen! 
+			};
+			
+			cancel.onclick = function(){				
+				popUpp.remove();
+				document.getElementById("transp").style.display = "none"; // gör så att blockering försvinner..
+			};
+			
+			
 		};
 		
 	},
@@ -68,7 +103,7 @@ var validator = {
 		var pTag, pTag2;
 		
 		pTag = document.createElement("p");
-		pTag.innerText = name+":\t\t\t\t\t\t\t";
+		pTag.innerText = name+": ";
 		pTag2 = document.createElement("p");
 		pTag2.innerHTML = theValue+"</br>";
 		popUpp.appendChild(pTag);
