@@ -7,6 +7,7 @@ var validator = {
 		errorId = /ErrorBox$/; //Gör ett regExp för att se om ID slutar på "ErrorBox"
 		emme = document.getElementsByTagName("input"); // Hämtar ner alla Inputs till en lista
 		
+		document.getElementById("SkickaKnapp").disabled = true; // disablar skicka knappen.. gör detta genom javaascript istället då sidan ska fungera utan javascript ...
 		
 		for( i = 0; i < emme.length ; i += 1){ // Genom att sätta min  funktion i en loop så hittar jag snabbt vilken "input" jag tryckt på.
 			
@@ -40,7 +41,36 @@ var validator = {
 				validator.readyToSend(errorId);
 				
 			};
-		}		
+		}
+		
+		document.getElementById("SkickaKnapp").onclick = function(){ // när man trycker på skicka knappen
+			var popUpp, h1;
+			
+			popUpp = document.getElementById("popupp");
+			h1 = document.createElement("h1");
+			h1.innerHTML = "Bekräfta beställning";
+			popUpp.appendChild(h1);
+			
+			validator.createPopuppContent("Förnamn", document.getElementById("nameId").value, popUpp);
+			validator.createPopuppContent("Efternamn", document.getElementById("lastNameId").value, popUpp);
+			validator.createPopuppContent("Postnummer", document.getElementById("PostnummerId").value, popUpp);
+			validator.createPopuppContent("E-Post", document.getElementById("mailId").value, popUpp);
+			validator.createPopuppContent("Prismodell", document.getElementById("PrismodellId").value, popUpp);
+			
+			return false; // För att formuläret inte ska skickas när man trycker på knappen..
+		};
+		
+	},
+	
+	createPopuppContent : function(name, theValue, popUpp){
+		var pTag, pTag2;
+		
+		pTag = document.createElement("p");
+		pTag.innerText = name+"\t:";
+		pTag2 = document.createElement("p");
+		pTag2.innerHTML = theValue+"</br>";
+		popUpp.appendChild(pTag);
+		popUpp.appendChild(pTag2);
 		
 	},
 	
