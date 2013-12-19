@@ -46,7 +46,7 @@ var validator = {
 		}
 		
 		document.getElementById("SkickaKnapp").onclick = function(e){ // när man trycker på skicka knappen
-			var popUpp, h1, cancel, accept, doWhat;
+			var popUpp, h1, cancel, accept, doWhat, transP;
 
 			e.preventDefault(); //return false; // För att formuläret inte ska skickas när man trycker på knappen..
 			
@@ -57,7 +57,7 @@ var validator = {
 			popUpp = document.createElement("div");
 			popUpp.setAttribute("id", "popupp");
 			
-			popUpp.insertBefore(popUpp, popUpp = document.getElementById("transp"));
+			
 			
 			h1 = document.createElement("h1");
 			h1.innerHTML = "Bekräfta beställning";
@@ -94,7 +94,9 @@ var validator = {
 				document.getElementById("transp").style.display = "none"; // gör så att blockering försvinner..
 			};
 			
+			transP = document.getElementById("transp");
 			
+			transP.parentNode.insertBefore(popUpp, transP.nextSibling); // skjuter in allt i webbläsaren
 		};
 		
 	},
