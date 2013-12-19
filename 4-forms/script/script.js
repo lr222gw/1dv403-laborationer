@@ -60,7 +60,7 @@ var validator = {
 			
 			
 			h1 = document.createElement("h1");
-			h1.innerHTML = "Bekräfta beställning";
+			h1.innerText = "Bekräfta beställning";
 			popUpp.appendChild(h1);
 			
 			validator.createPopuppContent("Förnamn", document.getElementById("nameId").value, popUpp);
@@ -107,7 +107,7 @@ var validator = {
 		pTag = document.createElement("p");
 		pTag.innerText = name+": ";
 		pTag2 = document.createElement("p");
-		pTag2.innerHTML = theValue+"</br>";
+		pTag2.innerText = theValue+"</br>";
 		popUpp.appendChild(pTag);
 		popUpp.appendChild(pTag2);
 		
@@ -227,7 +227,7 @@ var validator = {
 		
 		myHolder.setAttribute("id", ErrorMessageId);
 		
-		myHolder.innerHTML = answer; // Lägger in Content i P-taggen
+		myHolder.innerText = answer; // Lägger in Content i P-taggen
 		
 		if(myTarget.nextSibling.nodeName === "P"){ // if-sats som kollar om inputrutan redan visar ett felmeddelande.. 
 
