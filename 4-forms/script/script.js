@@ -57,6 +57,8 @@ var validator = {
 			validator.createPopuppContent("E-Post", document.getElementById("mailId").value, popUpp);
 			validator.createPopuppContent("Prismodell", document.getElementById("PrismodellId").value, popUpp);
 			
+			popUpp.style.display = "block";
+			
 			return false; // För att formuläret inte ska skickas när man trycker på knappen..
 		};
 		
@@ -66,7 +68,7 @@ var validator = {
 		var pTag, pTag2;
 		
 		pTag = document.createElement("p");
-		pTag.innerText = name+"\t:";
+		pTag.innerText = name+":\t\t\t\t\t\t\t";
 		pTag2 = document.createElement("p");
 		pTag2.innerHTML = theValue+"</br>";
 		popUpp.appendChild(pTag);
