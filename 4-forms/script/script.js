@@ -63,7 +63,7 @@ var validator = {
 			
 			
 			h1 = document.createElement("h1");
-			h1.appendChild(document.createTextNode("Bekräfta beställning");
+			h1.appendChild(document.createTextNode("Bekräfta beställning"));
 			popUpp.appendChild(h1);
 			
 			validator.createPopuppContent("Förnamn", document.getElementById("nameId").value, popUpp);
@@ -115,11 +115,11 @@ var validator = {
 		var pTag, pTag2;
 		
 		pTag = document.createElement("p");
-		pTag.appendChild(document.createTextNode(name+": "));
-		pTag2 = document.createElement("p");
-		pTag2.appendChild(document.createTextNode(theValue+"</br>"));
+		pTag.appendChild(document.createTextNode(name+": "+theValue));
+		//pTag2 = document.createElement("p");
+		//pTag2.appendChild(document.createTextNode(theValue));
 		popUpp.appendChild(pTag);
-		popUpp.appendChild(pTag2);
+		//popUpp.appendChild(pTag2);
 		
 	},
 	
