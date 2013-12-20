@@ -2,7 +2,7 @@ label{
 	
 	display:block;
 }
-#minForm p, #popupp p {
+#minForm p{
 	display: inline; /*Error text skrivs ut brevid rutan istället för under*/
 }
 #popupp{
