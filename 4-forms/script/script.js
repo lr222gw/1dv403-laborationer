@@ -51,7 +51,10 @@ var validator = {
 			e.preventDefault(); //return false; // För att formuläret inte ska skickas när man trycker på knappen..
 			
 			
-			document.getElementById("transp").style.display = "block"; // gör så att blockeringen sätts igång.. (från att trycka etc..)
+			//document.getElementById("transp").style.display = "block"; // gör så att blockeringen sätts igång.. (från att trycka etc..)
+			// Ny lösning ↓
+			document.getElementById("transp").classList.add("shown");
+			document.getElementById("transp").classList.remove("hidden");
 			
 			
 			popUpp = document.createElement("div");
@@ -69,7 +72,10 @@ var validator = {
 			validator.createPopuppContent("E-Post", document.getElementById("mailId").value, popUpp);
 			validator.createPopuppContent("Prismodell", document.getElementById("PrismodellId").value, popUpp);
 			
-			popUpp.style.display = "block"; // gör så att popuppen syns.. 
+			//popUpp.style.display = "block"; // gör så att popuppen syns.. 
+			// Ny lösning ↓
+			popUpp.classList.add("shown");
+			popUpp.classList.remove("hidden");
 			
 			
 			//Skapar två knappar... ↓
@@ -91,7 +97,11 @@ var validator = {
 			
 			cancel.onclick = function(){				
 				popUpp.remove();
-				document.getElementById("transp").style.display = "none"; // gör så att blockering försvinner..
+				// document.getElementById("transp").style.display = "none"; // gör så att blockering försvinner..
+				// Ny lösning ↓
+				popUpp.classList.add("hidden");
+				transP.classList.remove("shown");
+				transP.classList.add("hidden");
 			};
 			
 			transP = document.getElementById("transp");
