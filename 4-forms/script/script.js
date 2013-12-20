@@ -91,8 +91,11 @@ var validator = {
 			accept.setAttribute("id", "acceptbutton");
 			popUpp.appendChild(accept);
 			
-			accept.onclick = function(){				
+			accept.onclick = function(){	
+						
+				validator.disableInputBoxes(); // gör att input-boxarna är öppna och kan skickas!	
 				document.getElementById("minForm").submit(); // om man tryccker på Accept så submittas formen! 
+				
 			};
 			
 			cancel.onclick = function(){				
@@ -102,12 +105,39 @@ var validator = {
 				popUpp.classList.add("hidden");
 				transP.classList.remove("shown");
 				transP.classList.add("hidden");
+				validator.disableInputBoxes();
 			};
 			
 			transP = document.getElementById("transp");
 			
 			transP.parentNode.insertBefore(popUpp, transP.nextSibling); // skjuter in allt i webbläsaren
+			
+			validator.disableInputBoxes(); // när koden är genomförd disabla alla input boxar..
 		};
+		
+	},
+	
+	disableInputBoxes : function(){	
+		var checkArr, i, j, result, temp;
+		result = [];
+				
+		checkArr = document.getElementById("minForm").children[0].children;  // hämtar ner en array med alla input boxar..		
+		
+		for(i=0; i<checkArr.length; i+=1){ 
+			
+			if(checkArr[i].nodeName === "INPUT" || checkArr[i].nodeName === "SELECT"){ // om det är en inputbox
+				
+				if(document.getElementById("minForm").children[0].children[i].disabled === false){ // Om input rutan är disablad, avdisabla den, och tvärtom...
+					document.getElementById("minForm").children[0].children[i].disabled = true;
+				}else{
+					document.getElementById("minForm").children[0].children[i].disabled = false;
+				}
+				
+
+			}
+			
+		}
+
 		
 	},
 	
