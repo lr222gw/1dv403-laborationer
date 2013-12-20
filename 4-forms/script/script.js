@@ -288,6 +288,8 @@ var validator = {
 	
 	colorTimeOutOneSec : function(myTarget){ // Funktion som gör att felmeddelande blinkar rött om man ej åtgärdat det!
 		
+		//Notera, detta är inget bra sätt att sätta CSS attribut, det blir lätt rörigt (blanda inte JS och CSS pga vet ej vad saker kommer fårn etc)
+		// Dock spelar det ingen större roll här då vi ändrar från svart till röd och sen tillbaka till svart. Bättre lösning hade krävt mer kod så jag körde på det här sättet...
 		myTarget.nextSibling.style.color = "red";	
 		setTimeout(function(){
 			
