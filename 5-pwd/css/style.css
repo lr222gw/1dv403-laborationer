@@ -17,3 +17,9 @@ position: absolute;
 bottom: 0px;
 border-top: 2px black solid;
 }
+
+.aWindow{
+	width: 245px;
+	height: 290px;
+	background-color: blue;
+}

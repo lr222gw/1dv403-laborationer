@@ -29,18 +29,21 @@ var DESKTOPAPP = {
 			
 			//Konstruktor för mina fönster..
 			DeskWindowFunctionHolder : function(name, icon){
-				var theWindowToReturn;
+				var theWindowToReturn, frame;
 				
 				function DeskWindow(name, icon){
 					this.name = name;
 					this.icon = icon;
 				}
 				
-				DeskWindow.prototype.structure = function(){
-					
+				DeskWindow.prototype.structure = function(){ // här ska all kod för själva fönstrets uppbyggnad ligga..
+					frame = document.createElement("div");
+					frame.setAttribute("class", "aWindow");
+					document.getElementById("desktop").appendChild(frame);
 				};
 				
 				theWindowToReturn = new DeskWindow(name, icon); // skapar en knapp med värderna som skickades in till deskButtonFunctionHolder som returneras...
+				theWindowToReturn.structure();// Aktiverar fönstret med hjälp av min prototype..
 				return theWindowToReturn;
 			}
 			
