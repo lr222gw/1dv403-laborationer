@@ -4,8 +4,8 @@ var DESKTOPAPP = {
 	
 	master : function(){ // Huvudfunktionen som kör allt..
 		var he = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", "heh", "hoho");
-		var ho = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aWindow", "picstuff");
-		var heo = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aWindow", "picstuff");
+		var ho = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aerarWindow", "picstuff");
+		var heo = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aeeeeWindow", "pics/gallery.png");
 	}, 
 	
 	konstructors : { // Objekt där jag lagrar mina konstruktorer...
@@ -29,7 +29,7 @@ var DESKTOPAPP = {
 		},
 			
 			//Konstruktor för mina fönster..
-			DeskWindowFunctionHolder : function(name, icon){
+			DeskWindowFunctionHolder : function(name, icon, methodForWindow){
 				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos;
 				function DeskWindow(name, icon){
 					this.name = name;
@@ -46,6 +46,8 @@ var DESKTOPAPP = {
 					
 					iconAndName = document.createElement("div");
 					iconAndName.setAttribute("class", "iconAndName");
+					iconAndName.innerHTML = "<img src='"+icon+"'></img>";
+					iconAndName.innerHTML += "<p>"+name+"</p>"; // Ger rutan ett namn.. namnet som man skickar med..
 					topBar.appendChild(iconAndName);
 					
 					exitBpos = document.createElement("input");
@@ -66,7 +68,7 @@ var DESKTOPAPP = {
 					bottomBar.setAttribute("class", "bottomBar");
 					frame.appendChild(bottomBar);
 					
-					exitBpos.onclick = function(e){
+					exitBpos.onclick = function(e){ // funktion som stänger ner fönstret när man trycker på fönstrets stänga knapp!
 						e.target.parentNode.parentNode.remove();
 					};
 					
@@ -74,6 +76,7 @@ var DESKTOPAPP = {
 					
 					document.getElementById("desktop").appendChild(frame);
 				};
+								
 				
 				theWindowToReturn = new DeskWindow(name, icon); // skapar en knapp med värderna som skickades in till deskButtonFunctionHolder som returneras...
 				theWindowToReturn.structure();// Aktiverar fönstret med hjälp av min prototype..

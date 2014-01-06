@@ -57,6 +57,7 @@ body {
 	position: absolute;
 	margin-bottom: -55px;
 	float: left;
+	background-color: rgb(173, 173, 173);
 }
 
 .iconAndName {
@@ -64,4 +65,16 @@ body {
 }
 .exitBpos {
 	float: right;
+}
+
+.aWindow .topBar .iconAndName img {
+width: 25px;
+height: 25px;
+padding: 3px 5px 0px 5px;
+}
+.iconAndName p {
+position: absolute;
+display: block;
+top: -7px;
+margin-left: 35px;
 }
