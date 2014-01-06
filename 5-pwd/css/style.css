@@ -78,3 +78,16 @@ display: block;
 top: -7px;
 margin-left: 35px;
 }
+
+.contentBox img {
+display: block;
+margin: 0 auto;
+}
+
+.box {
+float: left;
+margin: 5px;
+padding: 5px;
+background-color: green;
+border-radius: 3px;
+}

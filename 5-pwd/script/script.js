@@ -91,7 +91,7 @@ var DESKTOPAPP = {
 	myFunctions : { // Object där jag lagrar mina funktioner, mm...
 		
 		getGallery : function(contentBox){
-			var galleryContent, jsonStr, parsedGallery, vaa;
+			var galleryContent, jsonStr, parsedGallery;
 			galleryContent = new XMLHttpRequest();
 			
 		
@@ -107,8 +107,9 @@ var DESKTOPAPP = {
 						
 						parsedGallery = JSON.parse(jsonStr);
 						
-						contentBox.innerHTML = parsedGallery;
-
+						//contentBox.innerHTML = parsedGallery; //testkod...
+						
+						DESKTOPAPP.myFunctions.insertGallery(contentBox, parsedGallery);// Skickar med mitt parsed gallery och content till en funktion som ska sätta in innehållet i fönstret..					
 						
 					}else{
 						console.log("läsfel, Status:"+galleryContent.status);
@@ -121,9 +122,42 @@ var DESKTOPAPP = {
 			
 			galleryContent.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
 			galleryContent.send(null);
+
+		},
+		
+		insertGallery : function(contentBox, parsedGallery){
+			var i, j, widest, tallest, box, img;
+			widest = 0;
+			tallest = 0;
 			
+			for(j = 0; j < parsedGallery.length; j +=1){
+				//Dessa två satser tar reda på den bredaste bredden, och den högsta höjden...
+				if(widest < parsedGallery[j].thumbWidth){
+					widest = parsedGallery[j].thumbWidth;		
+				}
+				
+				if(tallest < parsedGallery[j].thumbHeight){
+					tallest = parsedGallery[j].thumbHeight;
+				}			
+			}
 			
+			for(i = 0; i < parsedGallery.length; i +=1){
+				
+				box = document.createElement("div");
+				box.setAttribute("class", "box");
+				box.style.width = widest+"px"; // sätter boxens width och height till den bredaste och den högsta
+				box.style.height =  tallest+"px";
+				
+				img = document.createElement("img");
+				img.setAttribute("src", parsedGallery[i].thumbURL);
+				box.appendChild(img);
+				
+				contentBox.appendChild(box);
+				
+
+			}
 			
+
 		}
 	}
 	
