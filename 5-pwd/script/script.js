@@ -3,9 +3,8 @@
 var DESKTOPAPP = {
 	
 	master : function(){ // Huvudfunktionen som kör allt..
-		var he = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", "heh", "hoho");
-		var ho = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aerarWindow", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
-		var heo = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aeeeeWindow", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
+		var button = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", DESKTOPAPP.konstructors.DeskWindowFunctionHolder, "pics/gallery.png");
+		//^funktionen över skapar iconknappen...
 	}, 
 	
 	konstructors : { // Objekt där jag lagrar mina konstruktorer...
@@ -19,10 +18,23 @@ var DESKTOPAPP = {
 				this.buttonFunc = buttonFunc; // Metoden som ska kontaktas när denna knapp trycks (tex vad innehållet ska vara i fönster ruta)
 				this.icon = icon; // En bild till knappen				
 			}			
+			
+			DeskButton.prototype.structure = function(){
+				var theIcon, iconBar;
+				theIcon = document.createElement("div");
+				theIcon.setAttribute("class", "icon");
+				theIcon.innerHTML = "<img src='"+icon+"'>";
 				
-			DeskButton.prototype.doAction = function(){
-				alert();
+				iconBar = document.getElementById("iconBar");
+				iconBar.appendChild(theIcon);
+				
+				theIcon.onclick = function(){
+					buttonFunc("aerarWindow", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
+				};
 			};
+				
+			
+			DeskButton.prototype.structure(); // bygger upp min knapp..
 			
 			theButtonToReturn = new DeskButton(name, buttonFunc, icon); // skapar en knapp med värderna som skickades in till deskButtonFunctionHolder som returneras...
 			return theButtonToReturn;
@@ -148,7 +160,7 @@ var DESKTOPAPP = {
 				box.style.width = widest+"px"; // sätter boxens width och height till den bredaste och den högsta
 				box.style.height =  tallest+"px";
 				
-				img = document.createElement("img");
+				img = document.createElement("img");  // skapar en bildtagg och lägger in thumbnail bilderna
 				img.setAttribute("src", parsedGallery[i].thumbURL);
 				box.appendChild(img);
 				
