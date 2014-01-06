@@ -5,6 +5,7 @@ var DESKTOPAPP = {
 	master : function(){ // Huvudfunktionen som kör allt..
 		var he = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", "heh", "hoho");
 		var ho = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aWindow", "picstuff");
+		var heo = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aWindow", "picstuff");
 	}, 
 	
 	konstructors : { // Objekt där jag lagrar mina konstruktorer...
@@ -29,8 +30,7 @@ var DESKTOPAPP = {
 			
 			//Konstruktor för mina fönster..
 			DeskWindowFunctionHolder : function(name, icon){
-				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox;
-				
+				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos;
 				function DeskWindow(name, icon){
 					this.name = name;
 					this.icon = icon;
@@ -42,20 +42,33 @@ var DESKTOPAPP = {
 					
 					topBar = document.createElement("div"); // skapar en övre list, där plats för namn, icon och stängaknapp ska finnas..
 					topBar.setAttribute("class", "topBar");
-					frame.appendChild(topBar);
+					frame.appendChild(topBar);					
+					
+					iconAndName = document.createElement("div");
+					iconAndName.setAttribute("class", "iconAndName");
+					topBar.appendChild(iconAndName);
+					
+					exitBpos = document.createElement("input");
+					exitBpos.setAttribute("type", "submit");
+					exitBpos.setAttribute("value", "X");
+					exitBpos.setAttribute("class", "exitBpos");
+					topBar.appendChild(exitBpos);
 
-					contentWrap = document.createElement("div");
+					contentWrap = document.createElement("div"); //Skapar en wrap till platsen för content
 					contentWrap.setAttribute("class", "contentWrap");
 					frame.appendChild(contentWrap);
 					
-					contentBox = document.createElement("div");
+					contentBox = document.createElement("div"); // skapar platsen för content
 					contentBox.setAttribute("class", "contentBox");
 					contentWrap.appendChild(contentBox);
 					
-					bottomBar = document.createElement("div");
+					bottomBar = document.createElement("div"); // skapar bottomBar (plats för laddningsknapp/statusrad)
 					bottomBar.setAttribute("class", "bottomBar");
 					frame.appendChild(bottomBar);
 					
+					exitBpos.onclick = function(e){
+						e.target.parentNode.parentNode.remove();
+					};
 					
 					
 					
