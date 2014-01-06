@@ -29,7 +29,7 @@ var DESKTOPAPP = {
 				iconBar.appendChild(theIcon);
 				
 				theIcon.onclick = function(){
-					buttonFunc("aerarWindow", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
+					buttonFunc("Bildgalleri", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
 				};
 			};
 				
