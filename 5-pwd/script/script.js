@@ -4,8 +4,8 @@ var DESKTOPAPP = {
 	
 	master : function(){ // Huvudfunktionen som kör allt..
 		var he = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", "heh", "hoho");
-		var ho = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aerarWindow", "picstuff");
-		var heo = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aeeeeWindow", "pics/gallery.png");
+		var ho = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aerarWindow", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
+		var heo = new DESKTOPAPP.konstructors.DeskWindowFunctionHolder("aeeeeWindow", "pics/gallery.png", DESKTOPAPP.myFunctions.getGallery);
 	}, 
 	
 	konstructors : { // Objekt där jag lagrar mina konstruktorer...
@@ -17,7 +17,7 @@ var DESKTOPAPP = {
 			function DeskButton(name, buttonFunc, icon){
 				this.name = name; //namnet på iconen
 				this.buttonFunc = buttonFunc; // Metoden som ska kontaktas när denna knapp trycks (tex vad innehållet ska vara i fönster ruta)
-				this.icon = icon; // En bild till knappen
+				this.icon = icon; // En bild till knappen				
 			}			
 				
 			DeskButton.prototype.doAction = function(){
@@ -30,7 +30,7 @@ var DESKTOPAPP = {
 			
 			//Konstruktor för mina fönster..
 			DeskWindowFunctionHolder : function(name, icon, methodForWindow){
-				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos;
+				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos, fillThis;
 				function DeskWindow(name, icon){
 					this.name = name;
 					this.icon = icon;
@@ -75,6 +75,8 @@ var DESKTOPAPP = {
 					
 					
 					document.getElementById("desktop").appendChild(frame);
+					
+					fillThis = methodForWindow();
 				};
 								
 				
@@ -88,6 +90,39 @@ var DESKTOPAPP = {
 	
 	myFunctions : { // Object där jag lagrar mina funktioner, mm...
 		
+		getGallery : function(){
+			var galleryContent, jsonStr, parsedGallery;
+			galleryContent = new XMLHttpRequest();
+			
+		
+			
+			galleryContent.onreadystatechange = function(){
+				
+				if(galleryContent.readyState === 4){
+					
+					if(galleryContent.status >=200 && galleryContent.status < 300 || galleryContent.status === 304){
+						
+						
+						jsonStr = galleryContent.responseText;
+						
+						parsedGallery = JSON.parse(jsonStr);
+						
+						alert(parsedGallery);
+						
+						
+					}else{
+						console.log("läsfel, Status:"+galleryContent.status);
+						
+					}
+					
+				}
+				
+			};
+			
+			galleryContent.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
+			galleryContent.send(null);
+			
+		}
 	}
 	
 	
