@@ -30,7 +30,7 @@ var DESKTOPAPP = {
 			
 			//Konstruktor för mina fönster..
 			DeskWindowFunctionHolder : function(name, icon, methodForWindow){
-				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos, fillThis;
+				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos;
 				function DeskWindow(name, icon){
 					this.name = name;
 					this.icon = icon;
@@ -76,7 +76,7 @@ var DESKTOPAPP = {
 					
 					document.getElementById("desktop").appendChild(frame);
 					
-					fillThis = methodForWindow();
+					methodForWindow(contentBox);
 				};
 								
 				
@@ -90,8 +90,8 @@ var DESKTOPAPP = {
 	
 	myFunctions : { // Object där jag lagrar mina funktioner, mm...
 		
-		getGallery : function(){
-			var galleryContent, jsonStr, parsedGallery;
+		getGallery : function(contentBox){
+			var galleryContent, jsonStr, parsedGallery, vaa;
 			galleryContent = new XMLHttpRequest();
 			
 		
@@ -107,8 +107,8 @@ var DESKTOPAPP = {
 						
 						parsedGallery = JSON.parse(jsonStr);
 						
-						alert(parsedGallery);
-						
+						contentBox.innerHTML = parsedGallery;
+
 						
 					}else{
 						console.log("läsfel, Status:"+galleryContent.status);
@@ -121,6 +121,8 @@ var DESKTOPAPP = {
 			
 			galleryContent.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
 			galleryContent.send(null);
+			
+			
 			
 		}
 	}
