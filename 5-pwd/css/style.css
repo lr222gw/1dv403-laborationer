@@ -3,23 +3,36 @@ html, body, #desktop{
 	width: 100%;
 }
 body {
-margin: 0px;
+	margin: 0px;
 }
 #desktop {
 	background-color: red;
 }
 
 #iconBar {
-background-color: rgba(0, 0, 255, 0.44);
-width: 100%;
-height: 70px;
-position: absolute;
-bottom: 0px;
-border-top: 2px black solid;
+	background-color: rgba(0, 0, 255, 0.44);
+	width: 100%;
+	height: 70px;
+	position: absolute;
+	bottom: 0px;
+	border-top: 2px black solid;
 }
 
 .aWindow{
 	width: 245px;
 	height: 290px;
 	background-color: blue;
+	position: relative;
+}
+.topBar {
+	width: 100%;
+	height: 30px;
+	background-color: rgb(38, 68, 88);
+}
+.bottomBar {
+	width: 100%;
+	height: 30px;
+	background-color: rgb(38, 68, 88);
+	position: absolute;
+	bottom: 0;
 }

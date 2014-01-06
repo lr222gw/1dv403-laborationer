@@ -29,7 +29,7 @@ var DESKTOPAPP = {
 			
 			//Konstruktor för mina fönster..
 			DeskWindowFunctionHolder : function(name, icon){
-				var theWindowToReturn, frame;
+				var theWindowToReturn, frame, topBar, bottomBar;
 				
 				function DeskWindow(name, icon){
 					this.name = name;
@@ -39,6 +39,16 @@ var DESKTOPAPP = {
 				DeskWindow.prototype.structure = function(){ // här ska all kod för själva fönstrets uppbyggnad ligga..
 					frame = document.createElement("div");
 					frame.setAttribute("class", "aWindow");
+					
+					topBar = document.createElement("div");
+					topBar.setAttribute("class", "topBar");
+					frame.appendChild(topBar);
+					
+					bottomBar = document.createElement("div");
+					bottomBar.setAttribute("class", "bottomBar");
+					frame.appendChild(bottomBar);
+					
+					
 					document.getElementById("desktop").appendChild(frame);
 				};
 				
