@@ -4,7 +4,7 @@ var DESKTOPAPP = {
 	
 	master : function(){ // Huvudfunktionen som kör allt..
 		var button = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", DESKTOPAPP.konstructors.DeskWindowFunctionHolder, "pics/gallery.png");
-		//^funktionen över skapar iconknappen...
+		//^funktionsanropet över skapar iconknappen...
 	}, 
 	
 	konstructors : { // Objekt där jag lagrar mina konstruktorer...
@@ -42,7 +42,10 @@ var DESKTOPAPP = {
 			
 			//Konstruktor för mina fönster..
 			DeskWindowFunctionHolder : function(name, icon, methodForWindow){
-				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos;
+				var theWindowToReturn, frame, topBar, bottomBar, contentWrap, contentBox, iconAndName, exitBpos, dragFrame;
+				
+				dragFrame = null;
+				
 				function DeskWindow(name, icon){
 					this.name = name;
 					this.icon = icon;
@@ -84,11 +87,38 @@ var DESKTOPAPP = {
 						e.target.parentNode.parentNode.remove();
 					};
 					
-					
+					//metod för att flytta fönstret, inspererad av http://stackoverflow.com/questions/13152578/create-a-draggable-div-in-native-javascript
+
+					topBar.onmousedown = function(e){
+							
+						dragFrame = frame;
+						document.body.classList.add("selectTextOff"); // När man börjar dra omkring rutan så stängs select av.. då markeras inget..
+						
+					};
+					frame.onmousemove = function(e){
+						
+						var x = e.pageX - 50;
+						var y = e.pageY - 25; // minus värderna ändrar positionen för var muspekaren ska börja... 
+						
+						if(dragFrame === null){
+							return;
+						}
+						
+						dragFrame.style.left = x+"px";
+						dragFrame.style.top = y+"px";
+						
+						topBar.onmouseout = function(){
+							
+							document.getElementById("desktop").onmouseup = function(){// Fix = om musen är utanför rutan och man släpper så släpps rutan när man släpper musknappen...
+								dragFrame = null;
+								document.body.classList.remove("selectTextOff");
+							};
+						};
+					}; 
 					
 					document.getElementById("desktop").appendChild(frame);
 					
-					methodForWindow(contentBox, bottomBar);
+					methodForWindow(contentBox, bottomBar); // Beroende på vilken ikon man tryckt på anropas respektive metod för att fylla upp fönstret med rätt innehåll..
 				};
 								
 				
