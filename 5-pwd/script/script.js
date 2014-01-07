@@ -2,6 +2,8 @@
 
 var DESKTOPAPP = {
 	
+	windowOnTop : "undefined",
+	
 	master : function(){ // Huvudfunktionen som kör allt..
 		var button = new DESKTOPAPP.konstructors.deskButtonFunctionHolder("hehe", DESKTOPAPP.konstructors.DeskWindowFunctionHolder, "pics/gallery.png");
 		//^funktionsanropet över skapar iconknappen...
@@ -93,6 +95,15 @@ var DESKTOPAPP = {
 							
 						dragFrame = frame;
 						document.body.classList.add("selectTextOff"); // När man börjar dra omkring rutan så stängs select av.. då markeras inget..
+						
+						// Ändrar z-index så att föremålet tidigare tryckt på blir överst..
+						if(DESKTOPAPP.windowOnTop !== "undefined"){
+							DESKTOPAPP.windowOnTop.style.zIndex = 0; // om det finns något i windowOnTop så sätt dennes index till 0. 
+						}
+						
+						e.target.parentNode.style.zIndex = 5; // Sätter fönstret som man nyss tryck på att bli det översta
+						
+						DESKTOPAPP.windowOnTop = e.target.parentNode; //sparar ner vilket fönster i windowOnTop, för nästa fönster som trycks på!
 						
 					};
 					frame.onmousemove = function(e){
