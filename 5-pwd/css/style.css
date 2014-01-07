@@ -119,5 +119,14 @@ padding: 3px 5px 0px 5px;
 	width: 100%;
 	height: 100%;
 	background-repeat: no-repeat;
-	background-position: 10px 7px;
+	background-position: 10px 7px;	
 	}
+.loaderIcon::after{
+	content: attr(text);
+	font-size: 17px;
+	font-family: sans-serif;
+	position: relative;
+	left: 30px;
+	top: 8px;
+	}
+

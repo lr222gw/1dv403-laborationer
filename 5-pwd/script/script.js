@@ -138,9 +138,11 @@ var DESKTOPAPP = {
 			//laddar in laddningssymbolen...
 		 	loadingImg = document.createElement("div");
 			loadingImg.setAttribute("class", "loaderIcon");
+			loadingImg.setAttribute("text", "Loadning...");
 			
 			bottomBar.appendChild(loadingImg);
 			
+			//Gör det anropet mot servern...
 			galleryContent.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
 			galleryContent.send(null);
 
