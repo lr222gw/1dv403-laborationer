@@ -173,9 +173,24 @@ var DESKTOPAPP = {
 				
 				img = document.createElement("img");  // skapar en bildtagg och lägger in thumbnail bilderna
 				img.setAttribute("src", parsedGallery[i].thumbURL);
+				img.setAttribute("picLink", parsedGallery[i].URL); // Sparar ner informationen om bildens URL...
 				box.appendChild(img);
 				
 				contentBox.appendChild(box);
+				
+				//↓Funktion för att sätta bakgrundsbild!
+				box.onclick = function(e){ 					
+					var picToBeSet;
+					
+					if(e.target.className === "box"){ //om användaren tryckt på boxen
+						picToBeSet = e.target.children[0].getAttribute("piclink");
+					}else{ //om användaren tryckt på bilden
+						picToBeSet = e.target.getAttribute("piclink");
+					}
+					
+					document.getElementById("desktop").style.backgroundImage = "url("+picToBeSet+")";
+					
+				}
 				
 
 			}
