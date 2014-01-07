@@ -88,7 +88,7 @@ var DESKTOPAPP = {
 					
 					document.getElementById("desktop").appendChild(frame);
 					
-					methodForWindow(contentBox);
+					methodForWindow(contentBox, bottomBar);
 				};
 								
 				
@@ -102,16 +102,16 @@ var DESKTOPAPP = {
 	
 	myFunctions : { // Object där jag lagrar mina funktioner, mm...
 		
-		getGallery : function(contentBox){
-			var galleryContent, jsonStr, parsedGallery;
+		getGallery : function(contentBox, bottomBar){
+			var galleryContent, jsonStr, parsedGallery, loadingImg;
 			galleryContent = new XMLHttpRequest();
 			
 		
 			
-			galleryContent.onreadystatechange = function(){
+			galleryContent.onreadystatechange = function(){							
 				
 				if(galleryContent.readyState === 4){
-					
+				
 					if(galleryContent.status >=200 && galleryContent.status < 300 || galleryContent.status === 304){
 						
 						
@@ -121,7 +121,10 @@ var DESKTOPAPP = {
 						
 						//contentBox.innerHTML = parsedGallery; //testkod...
 						
-						DESKTOPAPP.myFunctions.insertGallery(contentBox, parsedGallery);// Skickar med mitt parsed gallery och content till en funktion som ska sätta in innehållet i fönstret..					
+						DESKTOPAPP.myFunctions.insertGallery(contentBox, parsedGallery, bottomBar);// Skickar med mitt parsed gallery och content till en funktion som ska sätta in innehållet i fönstret..
+						
+						//tar bort laddningsikonen
+						loadingImg.remove();		
 						
 					}else{
 						console.log("läsfel, Status:"+galleryContent.status);
@@ -132,12 +135,18 @@ var DESKTOPAPP = {
 				
 			};
 			
+			//laddar in laddningssymbolen...
+		 	loadingImg = document.createElement("div");
+			loadingImg.setAttribute("class", "loaderIcon");
+			
+			bottomBar.appendChild(loadingImg);
+			
 			galleryContent.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
 			galleryContent.send(null);
 
 		},
 		
-		insertGallery : function(contentBox, parsedGallery){
+		insertGallery : function(contentBox, parsedGallery, bottomBar){
 			var i, j, widest, tallest, box, img;
 			widest = 0;
 			tallest = 0;

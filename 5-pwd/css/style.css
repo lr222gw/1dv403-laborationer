@@ -82,34 +82,42 @@ height: 25px;
 padding: 3px 5px 0px 5px;
 }
 .iconAndName p {
-position: absolute;
-display: block;
-top: -7px;
-margin-left: 35px;
+	position: absolute;
+	display: block;
+	top: -7px;
+	margin-left: 35px;
 }
 
 .contentBox img {
-display: block;
-margin: 0 auto;
+	display: block;
+	margin: 0 auto;
 }
 
 .box {
-float: left;
-margin: 5px;
-padding: 5px;
-background-color: green;
-border-radius: 3px;
+	float: left;
+	margin: 5px;
+	padding: 5px;
+	background-color: green;
+	border-radius: 3px;
 }
 
 .icon {
-width: 70px;
-}
+	width: 70px;
+	}
 
 .icon img {
-width: 50px;
-padding: 5px;
-background-color: rgb(130, 130, 240);
-border-radius: 6px;
-margin: 5px;
-box-shadow: inset rgb(0, 0, 0) 0px 0px 50px 0px;
+	width: 50px;
+	padding: 5px;
+	background-color: rgb(130, 130, 240);
+	border-radius: 6px;
+	margin: 5px;
+	box-shadow: inset rgb(0, 0, 0) 0px 0px 50px 0px;
 }
+
+.loaderIcon {
+	background-image: url("../pics/ajax-loader.gif");
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: 10px 7px;
+	}
